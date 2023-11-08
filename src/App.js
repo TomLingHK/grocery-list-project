@@ -1,9 +1,10 @@
 import NavBar from "./components/NavBar/NavBar";
+import data from "./data/data.json";
 
 function App() {
   return (
     <div className="App">
-        <NavBar></NavBar>
+        <NavBar items={data}></NavBar>
     </div>
   );
 }

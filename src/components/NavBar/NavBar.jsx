@@ -1,13 +1,13 @@
 import './NavBar.scss';
 import NavButton from '../NavButton/NavButton';
 
-function NavBar() {
+function NavBar({items}) {
+    let navItems = items.nav;
     return (
         <div className="NavBar">
-            <div>Test 1</div>
-            <div>Test 2</div>
-            <div>Test 3</div>
-            <NavButton>Test</NavButton>
+            {navItems.map(item => {
+               return <NavButton key={ item }>{ item }</NavButton> 
+            })}
         </div>
     )
 }
