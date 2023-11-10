@@ -1,3 +1,11 @@
 .NavButton {
-    
+    cursor: pointer;
+    font-size: large;
+    font-weight: 900;
+    transition: transform 200ms ease-in-out;
+    &:hover {
+        color: rgb(0, 255, 115);
+        transform: scale(1.2);
+        transition-delay: 200ms;
+    }
 }

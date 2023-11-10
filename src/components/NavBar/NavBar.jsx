@@ -6,7 +6,11 @@ function NavBar({items}) {
     return (
         <div className="NavBar">
             {navItems.map(item => {
-               return <NavButton key={ item }>{ item }</NavButton> 
+                return (
+                    <NavButton key={ item }>
+                        { item }
+                    </NavButton>
+                )
             })}
         </div>
     )
