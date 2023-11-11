@@ -1,12 +1,8 @@
 import './NavButton.scss';
 
-function NavButton({ children }) {
-    function handleClick() {
-      console.log('Clicked: ', children)
-    }
-
+function NavButton({ children, handleClick }) {
     return (
-        <div className="NavButton" onClick={handleClick}>
+        <div className="NavButton" onClick={() => handleClick(children)}>
             { children }
         </div>
     )
