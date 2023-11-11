@@ -4,19 +4,22 @@
             "title": "Test 1", 
             "content": [
                 ["Column 1", "Column 2", "Column 3"]
-            ]
+            ],
+            "index": 0
         },
         {
             "title": "Test 2", 
             "content": [
                 ["Column 4", "Column 5", "Column 6"]
-            ]
+            ],
+            "index": 1
         },
         {
             "title": "Test 3", 
             "content": [
                 ["Column 7", "Column 8", "Column 9"]
-            ]
+            ],
+            "index": 2
         }
     ]
 }
