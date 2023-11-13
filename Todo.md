@@ -2,7 +2,7 @@
 
 - [ ] Dark mode
 
-- [ x ] Clickable nav bar
+- [x] Clickable nav bar
 
 - [ ] Able to add new item in nav bar
 
