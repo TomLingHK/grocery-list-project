@@ -3,4 +3,28 @@
     justify-content: space-around;
     width: 90%;
     margin: 10px 5%;
+    padding: 10px 0px;
+}
+
+#AddNavButton {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    line-height: 20px;
+    opacity: 50%;
+    color: white;
+    background: grey;
+    text-align: center;
+    align-self: center;
+    transition: transform 200ms ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 1;
+        transform: scale(1.2);
+        transform-origin: center;
+        color: black;
+        background: rgb(0, 255, 0);
+    }
 }

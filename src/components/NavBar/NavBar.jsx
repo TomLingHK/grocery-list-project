@@ -19,6 +19,9 @@ function NavBar({ items, handleClick }) {
                     </NavButton>
                 )
             })}
+            <div id="AddNavButton">
+                +
+            </div>
         </div>
     )
 }
