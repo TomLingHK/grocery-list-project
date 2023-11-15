@@ -16,6 +16,11 @@ function TableContent({ content }) {
                     })}
                 </ul>)
             })}
+            <div id="addRowContainer">
+                <div id="AddRowButton">
+                    +
+                </div>
+            </div>
         </div>
     )
 }
