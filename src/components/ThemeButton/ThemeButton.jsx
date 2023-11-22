@@ -1,16 +1,21 @@
-import './ThemeButton.scss';
+import { useContext } from 'react';
 
-function ThemeButton() {
+import './ThemeButton.scss';
+import ThemeContext from '../../context/ThemeContext';
+
+function ThemeButton({ setTheme }) {
+    const theme = useContext(ThemeContext);
+
     return (
         <label id="themeButton">
             <input
                 type="checkbox"
                 // checked={theme === 'dark'}
-                // onChange={(e) => {
-                //     setTheme(e.target.checked ? 'dark' : 'light')
-                // }}
+                onChange={(e) => {
+                    setTheme(e.target.checked ? 'dark' : 'light')
+                }}
             />
-            Use dark mode
+            Using {theme} mode 
         </label>
     )
 }

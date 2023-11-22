@@ -5,8 +5,11 @@ import NavBar from "./components/NavBar/NavBar";
 import TableContent from "./components/TableContent/TableContent";
 import ThemeButton from "./components/ThemeButton/ThemeButton";
 
+import ThemeContext from "./context/ThemeContext";
+
 function App() {
     const [selected, setSelected] = useState(0);
+    const [theme, setTheme] = useState('light');
     
     useEffect(() => {
         console.log("App rendered: ");
@@ -17,11 +20,11 @@ function App() {
     }
     
     return (
-        <div className="App">
+        <ThemeContext.Provider value={theme} className="App">
             <NavBar items={data} handleClick={ handleClick }></NavBar>
             <TableContent content={ data.nav[selected].content }></TableContent>
-            <ThemeButton></ThemeButton>
-        </div>
+            <ThemeButton setTheme={ setTheme }></ThemeButton>
+        </ThemeContext.Provider>
     );
 }
 
