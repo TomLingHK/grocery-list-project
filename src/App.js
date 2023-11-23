@@ -10,6 +10,7 @@ import ThemeContext from "./context/ThemeContext";
 function App() {
     const [selected, setSelected] = useState(0);
     const [theme, setTheme] = useState('light');
+    const className = "App " + theme;
     
     useEffect(() => {
         console.log("App rendered: ");
@@ -20,10 +21,12 @@ function App() {
     }
     
     return (
-        <ThemeContext.Provider value={theme} className="App">
-            <NavBar items={data} handleClick={ handleClick }></NavBar>
-            <TableContent content={ data.nav[selected].content }></TableContent>
-            <ThemeButton setTheme={ setTheme }></ThemeButton>
+        <ThemeContext.Provider value={theme}>
+            <div className={ className }>
+                <NavBar items={data} handleClick={ handleClick }></NavBar>
+                <TableContent content={ data.nav[selected].content }></TableContent>
+                <ThemeButton setTheme={ setTheme }></ThemeButton>
+            </div>
         </ThemeContext.Provider>
     );
 }
