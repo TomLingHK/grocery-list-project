@@ -10,7 +10,7 @@ function TableContent({ content }) {
     return (
         <div className="TableContent">
             { content.map((row, rIndex) => {
-                return (<ul> 
+                return (<ul key={`Row${rIndex}`}> 
                     { row.map((col, cIndex) => {
                         return <li key={`Row${rIndex}Col${cIndex}`}> { col } </li>
                     })}
