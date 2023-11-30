@@ -2,7 +2,7 @@ import './NavButton.scss';
 
 function NavButton({ children, handleClick }) {
     return (
-        <div className="NavButton" onClick={() => handleClick(children)}>
+        <div className="NavButton" style={{ color: children.testing ? "red" : "green" }} onClick={() => handleClick(children)}>
             { children.title }
         </div>
     )

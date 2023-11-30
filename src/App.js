@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import data from "./data/data.json";
+import temp_data from "./data/data.json";
 import { db } from "./config/firebase-config";
 import { getDocs, collection, addDoc } from "firebase/firestore";
 
@@ -65,8 +65,8 @@ function App() {
     return (
         <ThemeContext.Provider value={theme}>
             <div className={ className }>
-                <NavBar items={data} handleClick={ handleClick }></NavBar>
-                <TableContent content={ data.nav[selected].content }></TableContent>
+                <NavBar items={navList} handleClick={ handleClick }></NavBar>
+                <TableContent content={ temp_data.nav[selected].content }></TableContent>
                 <ThemeButton setTheme={ setTheme }></ThemeButton>
                 <Authentication/>
                 <div>
@@ -86,12 +86,6 @@ function App() {
                     <label>Is Testing</label>
                     <button onClick={onSubmitNav}>Add New Nav</button>
                 </div>
-                {navList.map((nav) => (
-                    <div>
-                        <h1 style={{ color: nav.testing ? "red" : "green" }}>{ nav.title }</h1>
-                        <p>{ nav.index }</p>
-                    </div>
-                ))}
             </div>
         </ThemeContext.Provider>
     );
