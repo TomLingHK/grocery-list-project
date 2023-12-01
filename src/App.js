@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar/NavBar";
 import TableContent from "./components/TableContent/TableContent";
 import ThemeButton from "./components/ThemeButton/ThemeButton";
 import Authentication from "./components/Authentication/Authentication";
+import AddPopup from "./components/AddPopup/AddPopup";
 
 function App() {
     const [selected, setSelected] = useState(0);
@@ -69,23 +70,13 @@ function App() {
                 <TableContent content={ temp_data.nav[selected].content }></TableContent>
                 <ThemeButton setTheme={ setTheme }></ThemeButton>
                 <Authentication/>
-                <div>
-                    <input 
-                        placeholder="Title..." 
-                        onChange={(e) => setNewNavTitle(e.target.value)}
-                    />
-                    <input 
-                        placeholder="Index..."
-                        onChange={(e) => setNewNavIndex(e.target.value)}
-                    />
-                    <input 
-                        type="checkbox" 
-                        checked={newNavIsTesting} 
-                        onChange={(e) => setNewNavIsTesting(e.target.checked)}
-                    />
-                    <label>Is Testing</label>
-                    <button onClick={onSubmitNav}>Add New Nav</button>
-                </div>
+                <AddPopup 
+                    setNewNavTitle={setNewNavTitle} 
+                    setNewNavIndex={setNewNavIndex} 
+                    setNewNavIsTesting={setNewNavIsTesting} 
+                    newNavIsTesting={newNavIsTesting} 
+                    onSubmitNav={onSubmitNav}
+                ></AddPopup>
             </div>
         </ThemeContext.Provider>
     );

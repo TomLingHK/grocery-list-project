@@ -1,0 +1,29 @@
+import './AddPopup.scss'
+
+function AddPopup({setNewNavTitle, setNewNavIndex, setNewNavIsTesting, newNavIsTesting, onSubmitNav}) {
+    return (
+        <div className="addPopupContainer">
+            <div className="addPopupBg">
+            </div>
+            <div className="addPopupInputSection">
+                <input 
+                    placeholder="Title..." 
+                    onChange={(e) => setNewNavTitle(e.target.value)}
+                />
+                <input 
+                    placeholder="Index..."
+                    onChange={(e) => setNewNavIndex(e.target.value)}
+                />
+                <input 
+                    type="checkbox" 
+                    checked={newNavIsTesting} 
+                    onChange={(e) => setNewNavIsTesting(e.target.checked)}
+                />
+                <label>Is Testing</label>
+                <button onClick={onSubmitNav}>Add New Nav</button>
+            </div>
+        </div>
+    )
+}
+
+export default AddPopup;
