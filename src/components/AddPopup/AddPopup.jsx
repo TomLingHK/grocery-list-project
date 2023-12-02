@@ -1,6 +1,8 @@
 import './AddPopup.scss'
 
-function AddPopup({setNewNavTitle, setNewNavIsTesting, newNavIsTesting, onSubmitNav}) {
+function AddPopup({setNewNavTitle, setNewNavIsTesting, newNavIsTesting, onSubmitNav, isShowAddPopup}) {
+    if (!isShowAddPopup) return(<></>);
+
     return (
         <div className="addPopupContainer">
             <div className="addPopupBg">

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import './NavBar.scss';
 import NavButton from '../NavButton/NavButton';
 
-function NavBar({ items, handleClick }) {
+function NavBar({ items, handleClick, handleAddNewNavClick }) {
     useEffect(() => {
         console.log("NavBar rendered: ");
     })
@@ -17,7 +17,7 @@ function NavBar({ items, handleClick }) {
                     </NavButton>
                 )
             })}
-            <div id="AddNavButton">
+            <div id="AddNavButton" onClick={ handleAddNewNavClick }>
                 +
             </div>
         </div>

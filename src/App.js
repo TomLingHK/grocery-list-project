@@ -15,6 +15,7 @@ function App() {
     const [selected, setSelected] = useState(0);
     const [theme, setTheme] = useState('light');
     const [navList, setNavList] = useState([]);
+    const [isShowAddPopup, setIsShowAddPopup] = useState(false);
 
     // New Nav States
     const [newNavTitle, setNewNavTitle] = useState("");
@@ -68,11 +69,15 @@ function App() {
     function handleClick(children) {
         setSelected(children.index);
     }
+
+    function handleAddNewNavClick() {
+        setIsShowAddPopup(true);
+    }
     
     return (
         <ThemeContext.Provider value={theme}>
             <div className={ className }>
-                <NavBar items={navList} handleClick={ handleClick }></NavBar>
+                <NavBar items={navList} handleClick={ handleClick } handleAddNewNavClick={ handleAddNewNavClick }></NavBar>
                 <TableContent content={ temp_data.nav[selected].content }></TableContent>
                 <ThemeButton setTheme={ setTheme }></ThemeButton>
                 <Authentication/>
@@ -81,6 +86,7 @@ function App() {
                     setNewNavIsTesting={setNewNavIsTesting} 
                     newNavIsTesting={newNavIsTesting} 
                     onSubmitNav={onSubmitNav}
+                    isShowAddPopup={isShowAddPopup}
                 ></AddPopup>
             </div>
         </ThemeContext.Provider>
