@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import temp_data from "./data/data.json";
 import { db } from "./config/firebase-config";
 import { getDocs, collection, addDoc, Timestamp, query, orderBy } from "firebase/firestore";
 
@@ -37,6 +36,7 @@ function App() {
             }));
 
             setNavList(filteredData);
+            console.warn(filteredData)
         } catch (error) {
             console.error(error);
         }
@@ -78,7 +78,7 @@ function App() {
         <ThemeContext.Provider value={theme}>
             <div className={ className }>
                 <NavBar items={navList} handleClick={ handleClick } handleAddNewNavClick={ handleAddNewNavClick }></NavBar>
-                <TableContent content={ temp_data.nav[selected].content }></TableContent>
+                <TableContent content={ navList[selected]?.tableContent }></TableContent>
                 <ThemeButton setTheme={ setTheme }></ThemeButton>
                 <Authentication/>
                 <AddPopup 
