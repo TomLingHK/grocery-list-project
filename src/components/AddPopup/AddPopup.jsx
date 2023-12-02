@@ -1,6 +1,6 @@
 import './AddPopup.scss'
 
-function AddPopup({setNewNavTitle, setNewNavIndex, setNewNavIsTesting, newNavIsTesting, onSubmitNav}) {
+function AddPopup({setNewNavTitle, setNewNavIsTesting, newNavIsTesting, onSubmitNav}) {
     return (
         <div className="addPopupContainer">
             <div className="addPopupBg">
@@ -9,10 +9,6 @@ function AddPopup({setNewNavTitle, setNewNavIndex, setNewNavIsTesting, newNavIsT
                 <input 
                     placeholder="Title..." 
                     onChange={(e) => setNewNavTitle(e.target.value)}
-                />
-                <input 
-                    placeholder="Index..."
-                    onChange={(e) => setNewNavIndex(e.target.value)}
                 />
                 <input 
                     type="checkbox" 

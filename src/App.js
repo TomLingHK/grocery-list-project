@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import temp_data from "./data/data.json";
 import { db } from "./config/firebase-config";
-import { getDocs, collection, addDoc } from "firebase/firestore";
+import { getDocs, collection, addDoc, Timestamp, query, orderBy } from "firebase/firestore";
 
 import ThemeContext from "./context/ThemeContext";
 
@@ -18,7 +18,6 @@ function App() {
 
     // New Nav States
     const [newNavTitle, setNewNavTitle] = useState("");
-    const [newNavIndex, setNewNavIndex] = useState(0);
     const [newNavIsTesting, setNewNavIsTesting] = useState(false);
 
     const navListCollectionRef = collection(db, "navBar");
@@ -28,11 +27,14 @@ function App() {
     
     const getNavList = async () => {
         try {
-            const data = await getDocs(navListCollectionRef);
-            const filteredData = data.docs.map((doc) => ({
+            const orderedQuery = query(navListCollectionRef, orderBy("createdAt"));
+            const querySnapshot = await getDocs(orderedQuery);
+
+            const filteredData = querySnapshot.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id,
-            }))
+            }));
+
             setNavList(filteredData);
         } catch (error) {
             console.error(error);
@@ -47,9 +49,13 @@ function App() {
     const onSubmitNav = async () => {
         try {
             await addDoc(navListCollectionRef, {
-                title: newNavTitle, 
-                index: newNavIndex, 
-                testing: newNavIsTesting
+                title: newNavTitle,
+                testing: newNavIsTesting,
+                createdAt: Timestamp.fromDate(new Date()),
+                tableContent: {
+                    row0: ["Test1", "Test2", "Test3"],
+                    row1: ["Test4", "Test5", "Test6"],
+                }
             });
             
             getNavList();
@@ -72,7 +78,6 @@ function App() {
                 <Authentication/>
                 <AddPopup 
                     setNewNavTitle={setNewNavTitle} 
-                    setNewNavIndex={setNewNavIndex} 
                     setNewNavIsTesting={setNewNavIsTesting} 
                     newNavIsTesting={newNavIsTesting} 
                     onSubmitNav={onSubmitNav}
