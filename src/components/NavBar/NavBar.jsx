@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import './NavBar.scss';
 import NavButton from '../NavButton/NavButton';
 
-function NavBar({ items, handleClick, handleAddNewNavClick }) {
+function NavBar({ items, handleClick, setIsShowAddPopup }) {
     useEffect(() => {
         console.log("NavBar rendered: ");
     })
@@ -19,7 +19,7 @@ function NavBar({ items, handleClick, handleAddNewNavClick }) {
                     </div>
                 )
             })}
-            <div id="AddNavButton" onClick={ handleAddNewNavClick }>
+            <div id="AddNavButton" onClick={ () => setIsShowAddPopup(true) }>
                 +
             </div>
         </div>

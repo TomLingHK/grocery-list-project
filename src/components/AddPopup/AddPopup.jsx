@@ -1,6 +1,6 @@
 import './AddPopup.scss'
 
-function AddPopup({setNewNavTitle, setNewNavIsTesting, newNavIsTesting, onSubmitNav, isShowAddPopup}) {
+function AddPopup({setNewNavTitle, setNewNavIsTesting, newNavIsTesting, onSubmitNav, isShowAddPopup, setIsShowAddPopup}) {
     if (!isShowAddPopup) return(<></>);
 
     return (
@@ -8,17 +8,24 @@ function AddPopup({setNewNavTitle, setNewNavIsTesting, newNavIsTesting, onSubmit
             <div className="addPopupBg">
             </div>
             <div className="addPopupInputSection">
-                <input 
-                    placeholder="Title..." 
-                    onChange={(e) => setNewNavTitle(e.target.value)}
-                />
-                <input 
-                    type="checkbox" 
-                    checked={newNavIsTesting} 
-                    onChange={(e) => setNewNavIsTesting(e.target.checked)}
-                />
-                <label>Is Testing</label>
-                <button onClick={onSubmitNav}>Add New Nav</button>
+                <div className="titleInputContaienr">
+                    <input 
+                        placeholder="Title..." 
+                        onChange={(e) => setNewNavTitle(e.target.value)}
+                    />
+                </div>
+                <div className="isTestingInputContainer">
+                    <input 
+                        type="checkbox" 
+                        checked={newNavIsTesting} 
+                        onChange={(e) => setNewNavIsTesting(e.target.checked)}
+                    />
+                    <label>Is Testing</label>
+                </div>
+                <div className="btnContainer">
+                    <button className="addNewNavBtn" onClick={onSubmitNav}>Add New Nav</button>
+                    <button className="cancelBtn" onClick={ () => setIsShowAddPopup(false)}>Cancel</button>
+                </div>
             </div>
         </div>
     )

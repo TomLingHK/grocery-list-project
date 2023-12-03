@@ -4,6 +4,8 @@ import { getDocs, collection, addDoc, Timestamp, query, orderBy } from "firebase
 
 import ThemeContext from "./context/ThemeContext";
 
+import './App.scss';
+
 import NavBar from "./components/NavBar/NavBar";
 import TableContent from "./components/TableContent/TableContent";
 import ThemeButton from "./components/ThemeButton/ThemeButton";
@@ -56,7 +58,9 @@ function App() {
                 tableContent: {
                     row0: ["Test1", "Test2", "Test3"],
                     row1: ["Test4", "Test5", "Test6"],
-                }
+                },
+                rowCount: 2,
+                colCount: 3,
             });
             
             getNavList();
@@ -69,24 +73,23 @@ function App() {
     function handleClick(index) {
         setSelected(index);
     }
-
-    function handleAddNewNavClick() {
-        setIsShowAddPopup(true);
-    }
     
     return (
         <ThemeContext.Provider value={theme}>
             <div className={ className }>
-                <NavBar items={navList} handleClick={ handleClick } handleAddNewNavClick={ handleAddNewNavClick }></NavBar>
-                <TableContent content={ navList[selected]?.tableContent }></TableContent>
-                <ThemeButton setTheme={ setTheme }></ThemeButton>
-                <Authentication/>
+                <div className="pageContainer">
+                    <NavBar items={navList} handleClick={ handleClick } setIsShowAddPopup={ setIsShowAddPopup }></NavBar>
+                    <TableContent content={ navList[selected]?.tableContent }></TableContent>
+                    <ThemeButton setTheme={ setTheme }></ThemeButton>
+                    <Authentication/>
+                </div>
                 <AddPopup 
                     setNewNavTitle={setNewNavTitle} 
                     setNewNavIsTesting={setNewNavIsTesting} 
                     newNavIsTesting={newNavIsTesting} 
                     onSubmitNav={onSubmitNav}
                     isShowAddPopup={isShowAddPopup}
+                    setIsShowAddPopup={setIsShowAddPopup}
                 ></AddPopup>
             </div>
         </ThemeContext.Provider>
