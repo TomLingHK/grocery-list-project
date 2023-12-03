@@ -12,7 +12,7 @@ function TableContent({ content }) {
     return (
         <div className="TableContent">
             { Object.keys(content).map((row, rIndex) => {
-                return (<ul key={`Row${rIndex}`}> 
+                return (<ul key={`Row${rIndex}`} style={{ background: row==='row0' ? 'aliceblue' : ''}}> 
                     { content[row].map((col, cIndex) => {
                         return <li key={`Row${rIndex}Col${cIndex}`}> { col } </li>
                     })}

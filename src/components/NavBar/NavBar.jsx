@@ -10,11 +10,13 @@ function NavBar({ items, handleClick, handleAddNewNavClick }) {
 
     return (
         <div className="NavBar">
-            {items.map(item => {
+            {items.map((item, index) => {
                 return (
-                    <NavButton key={ item.title } handleClick={ handleClick }>
-                        { item }
-                    </NavButton>
+                    <div key={ index } onClick={() => handleClick(index)}>
+                        <NavButton>
+                            { item }
+                        </NavButton>
+                    </div>
                 )
             })}
             <div id="AddNavButton" onClick={ handleAddNewNavClick }>

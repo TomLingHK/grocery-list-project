@@ -1,8 +1,8 @@
 import './NavButton.scss';
 
-function NavButton({ children, handleClick }) {
+function NavButton({ children }) {
     return (
-        <div className="NavButton" style={{ color: children.testing ? "red" : "green" }} onClick={() => handleClick(children)}>
+        <div className="NavButton" style={{ color: children.testing ? "red" : "green" }}>
             { children.title }
         </div>
     )

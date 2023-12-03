@@ -66,8 +66,8 @@ function App() {
 
     };
 
-    function handleClick(children) {
-        setSelected(children.index);
+    function handleClick(index) {
+        setSelected(index);
     }
 
     function handleAddNewNavClick() {
