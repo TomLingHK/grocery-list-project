@@ -2,16 +2,21 @@ import { useEffect } from "react";
 
 import './TableContent.scss'
 
-function TableContent({ content }) {
+function TableContent({ content, rowCount, colCount }) {
     useEffect(() => {
         console.log("TableContent rendered: ");
     })
+
+    const orderedContent = [];
+    for (let i = 0; i < rowCount; i++) {
+        orderedContent.push('row' + i);
+    }
 
     if (content === undefined) return(<></>)
 
     return (
         <div className="TableContent">
-            { Object.keys(content).map((row, rIndex) => {
+            { orderedContent.map((row, rIndex) => {
                 return (<ul key={`Row${rIndex}`} style={{ background: row==='row0' ? 'aliceblue' : ''}}> 
                     { content[row].map((col, cIndex) => {
                         return <li key={`Row${rIndex}Col${cIndex}`}> { col } </li>

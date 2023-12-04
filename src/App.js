@@ -38,7 +38,6 @@ function App() {
             }));
 
             setNavList(filteredData);
-            console.warn(filteredData)
         } catch (error) {
             console.error(error);
         }
@@ -79,7 +78,7 @@ function App() {
             <div className={ className }>
                 <div className="pageContainer">
                     <NavBar items={navList} handleClick={ handleClick } setIsShowAddPopup={ setIsShowAddPopup }></NavBar>
-                    <TableContent content={ navList[selected]?.tableContent }></TableContent>
+                    <TableContent content={ navList[selected]?.tableContent } rowCount = { navList[selected]?.rowCount } colCount = { navList[selected]?.colCount }></TableContent>
                     <ThemeButton setTheme={ setTheme }></ThemeButton>
                     <Authentication/>
                 </div>
