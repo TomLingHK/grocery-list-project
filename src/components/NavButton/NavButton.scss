@@ -8,4 +8,22 @@
         transform: scale(1.2);
         transition-delay: 200ms;
     }
+
+    &.isTesting {
+        color: red;
+    }
+
+    &.notTesting {
+        color: green;
+    }
+
+    &.dark {
+        &.isTesting {
+            color: rgb(255, 98, 98);
+        }
+    
+        &.notTesting {
+            color: green;
+        }
+    }
 }

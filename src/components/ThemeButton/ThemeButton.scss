@@ -1,4 +1,8 @@
-#themeButton {
+.themeButton {
     position: absolute;
     right: 0;
+
+    &.dark {
+        color: rgba(255, 255, 255, 0.822);
+    }
 }

@@ -5,9 +5,10 @@ import ThemeContext from '../../context/ThemeContext';
 
 function ThemeButton({ setTheme }) {
     const theme = useContext(ThemeContext);
+    const className = "themeButton " + theme;
 
     return (
-        <label id="themeButton">
+        <label className={ className }>
             <input
                 type="checkbox"
                 // checked={theme === 'dark'}

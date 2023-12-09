@@ -38,4 +38,11 @@
             }
         }
     }
+
+    &.dark {
+        .addPopupInputSection {
+            background: rgb(77, 77, 77);
+            color: rgba(255, 255, 255, 0.822);
+        }
+    }
 }

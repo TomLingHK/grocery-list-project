@@ -1,10 +1,17 @@
+import { useContext } from "react";
+
+import ThemeContext from '../../context/ThemeContext';
+
 import './AddPopup.scss'
 
 function AddPopup({setNewNavTitle, setNewNavIsTesting, newNavIsTesting, onSubmitNav, isShowAddPopup, setIsShowAddPopup}) {
+    const theme = useContext(ThemeContext);
+    const className = "addPopupContainer " + theme;
+
     if (!isShowAddPopup) return(<></>);
 
     return (
-        <div className="addPopupContainer">
+        <div className={ className }>
             <div className="addPopupBg">
             </div>
             <div className="addPopupInputSection">
