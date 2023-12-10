@@ -4,6 +4,8 @@
     font-weight: 900;
     display: inline-flex;
     align-items: center;
+    padding: 10px 50px;
+    border: 2px solid black;
     
     .NavButtonTitle {
         margin-right: 15px;
@@ -30,6 +32,7 @@
 
     .EditButtons {
         color: rgb(255, 151, 25);
+        margin-right: 10px;
 
         .EditButton_normal {
             display: block;
@@ -46,7 +49,19 @@
                 display: block;
             }
         }
+    }
 
+    .DeleteButtons {
+        .DeleteButton {
+            color: red;
+            opacity: 0.3;
+        }
+
+        &:hover {
+            .DeleteButton {
+                opacity: 1;
+            }
+        }
     }
 
 
