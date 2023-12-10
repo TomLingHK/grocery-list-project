@@ -2,28 +2,65 @@
     cursor: pointer;
     font-size: large;
     font-weight: 900;
-    transition: transform 200ms ease-in-out;
-    &:hover {
-        color: rgb(0, 255, 115);
-        transform: scale(1.2);
-        transition-delay: 200ms;
+    display: inline-flex;
+    align-items: center;
+    
+    .NavButtonTitle {
+        margin-right: 15px;
+        transition: transform 200ms ease-in-out;
+        &:hover {
+            color: rgb(0, 255, 115);
+            transform: scale(1.2);
+            transition-delay: 200ms;
+        }
+
     }
 
     &.isTesting {
-        color: red;
+        .NavButtonTitle {
+            color: red;
+        }
     }
 
     &.notTesting {
-        color: green;
+        .NavButtonTitle {
+            color: green;
+        }
     }
+
+    .EditButtons {
+        color: rgb(255, 151, 25);
+
+        .EditButton_normal {
+            display: block;
+        }
+        .EditButton_hover {
+            display: none;
+        }
+
+        &:hover {
+            .EditButton_normal {
+                display: none;
+            }
+            .EditButton_hover {
+                display: block;
+            }
+        }
+
+    }
+
 
     &.dark {
         &.isTesting {
-            color: rgb(255, 98, 98);
+            .NavButtonTitle {
+                color: rgb(255, 98, 98);
+            }
         }
     
         &.notTesting {
-            color: green;
+            .NavButtonTitle {
+                color: green;
+            }
         }
     }
 }

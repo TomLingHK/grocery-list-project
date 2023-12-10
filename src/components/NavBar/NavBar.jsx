@@ -12,8 +12,8 @@ function NavBar({ items, handleClick, setIsShowAddPopup }) {
         <div className="NavBar">
             {items.map((item, index) => {
                 return (
-                    <div key={ index } onClick={() => handleClick(index)} className={ item.title }>
-                        <NavButton>
+                    <div key={ index } className={ item.title }>
+                        <NavButton index={ index } handleClick={ handleClick } >
                             { item }
                         </NavButton>
                     </div>
