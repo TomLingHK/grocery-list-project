@@ -6,21 +6,32 @@ import ThemeContext from '../../context/ThemeContext';
 
 import './NavButton.scss';
 
-function NavButton({ children, index, handleClick }) {
+function NavButton({ children, index, handleClick, setTitle, dataId }) {
     const isTesting = children.testing ? "isTesting" : "notTesting";
 
     const theme = useContext(ThemeContext);
     const className = "NavButton " + theme + " " + isTesting;
 
     const [isEditing, setIsEditing] = useState(false);
-    const [title, setTitle] = useState(children.title);
+    const [newTitle, setNewTitle] = useState(children.title);
+
+    function onTickClick() {
+        setTitle(children.title, newTitle, dataId);
+        setIsEditing(false);
+    }
+
+    if (isEditing)
+        setTimeout(() => document.getElementById("titleInput").focus(), 0);
 
     return (
         <div className={ className }>
             {
                 isEditing
                 ?
-                    <input type="text" value={ title } onChange={(e) => setTitle(e.target.value)} />
+                <>
+                    <input id="titleInput" type="text" value={ newTitle } onChange={(e) => setNewTitle(e.target.value)} />
+                    <FontAwesomeIcon className="TickButton" icon={icon({name: 'circle-check', style: 'solid'})} onClick={ onTickClick } />
+                </>
                 :
                 <>
                     <div className="NavButtonTitle" onClick={ () => { handleClick(index) }}>

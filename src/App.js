@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { db } from "./config/firebase-config";
-import { getDocs, collection, addDoc, Timestamp, query, orderBy } from "firebase/firestore";
+import { getDocs, collection, addDoc, Timestamp, query, orderBy, doc, updateDoc } from "firebase/firestore";
 
 import ThemeContext from "./context/ThemeContext";
 
@@ -11,12 +11,17 @@ import TableContent from "./components/TableContent/TableContent";
 import ThemeButton from "./components/ThemeButton/ThemeButton";
 import Authentication from "./components/Authentication/Authentication";
 import AddPopup from "./components/AddPopup/AddPopup";
+import ConfirmPopup from "./components/ConfirmPopup/ConfirmPopup";
 
 function App() {
     const [selected, setSelected] = useState(0);
     const [theme, setTheme] = useState('light');
     const [navList, setNavList] = useState([]);
     const [isShowAddPopup, setIsShowAddPopup] = useState(false);
+    const [isShowConfirmPopup, setIsShowConfirmPopup] = useState(false);
+    const [oldTitle, setOldTitle] = useState('');
+    const [newTitle, setNewTitle] = useState('');
+    const [curDataId , setCurDataId] = useState('');
 
     // New Nav States
     const [newNavTitle, setNewNavTitle] = useState("");
@@ -66,18 +71,43 @@ function App() {
         } catch (error) {
             console.error(error);
         }
-
     };
+
+    const updateNavBtnTitle = async () => {
+        const navBarDoc = doc(db, "navBar", curDataId);
+        await updateDoc(navBarDoc, {title: newTitle});
+
+        resetConfirmPopupData();
+
+        function resetConfirmPopupData() {
+            setOldTitle('');
+            setNewTitle('');
+            setIsShowConfirmPopup(false);
+            setCurDataId('');
+        }
+    }
 
     function handleClick(index) {
         setSelected(index);
+    }
+
+    function setTitle(oldTitle, newTitle, dataId) {
+        setOldTitle(oldTitle);
+        setNewTitle(newTitle);
+        setIsShowConfirmPopup(true);
+        setCurDataId(dataId);
     }
     
     return (
         <ThemeContext.Provider value={theme}>
             <div className={ className }>
                 <div className="pageContainer">
-                    <NavBar items={navList} handleClick={ handleClick } setIsShowAddPopup={ setIsShowAddPopup }></NavBar>
+                    <NavBar 
+                        items={navList} 
+                        handleClick={ handleClick } 
+                        setIsShowAddPopup={ setIsShowAddPopup }
+                        setTitle = { setTitle }
+                    ></NavBar>
                     <TableContent content={ navList[selected]?.tableContent } rowCount = { navList[selected]?.rowCount } colCount = { navList[selected]?.colCount }></TableContent>
                     <ThemeButton setTheme={ setTheme }></ThemeButton>
                     <Authentication/>
@@ -90,6 +120,13 @@ function App() {
                     isShowAddPopup={isShowAddPopup}
                     setIsShowAddPopup={setIsShowAddPopup}
                 ></AddPopup>
+                <ConfirmPopup
+                    oldTitle={oldTitle}
+                    newTitle={newTitle}
+                    onConfirm={updateNavBtnTitle}
+                    isShowConfirmPopup={isShowConfirmPopup}
+                    setIsShowConfirmPopup={setIsShowConfirmPopup}
+                ></ConfirmPopup>
             </div>
         </ThemeContext.Provider>
     );

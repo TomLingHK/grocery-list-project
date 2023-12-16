@@ -8,6 +8,8 @@ This is a project aims to practice React framework and interact between database
 
 - [x] Clickable nav bar
 
+- [x] Able to modify title of nav button
+
 - [ ] Able to add new item in nav bar
 
 - [ ] Table
@@ -17,3 +19,5 @@ This is a project aims to practice React framework and interact between database
 - [ ] Modify data
 
 - [ ] Able to upload pictures
+
+- [ ] Bug: After updating title of nav button, data is not updated immediately
