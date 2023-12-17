@@ -78,6 +78,7 @@ function App() {
         await updateDoc(navBarDoc, {title: newTitle});
 
         resetConfirmPopupData();
+        getNavList();
 
         function resetConfirmPopupData() {
             setOldTitle('');
