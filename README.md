@@ -20,4 +20,4 @@ This is a project aims to practice React framework and interact between database
 
 - [ ] Able to upload pictures
 
-- [ ] Bug: After updating title of nav button, data is not updated immediately
+- [x] Bug: After updating title of nav button, data is not updated immediately
