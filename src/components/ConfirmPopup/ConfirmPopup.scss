@@ -21,17 +21,48 @@
         border-radius: 10px;
         display: flex;
         flex-direction: column;
+        .message {
+            text-align: center;
+            position: absolute;
+            top: 30%;
+            width: 100%;
+            font-size: large;
+            font-weight: bold;
+        }
         .btnContainer {
             position: absolute;
             width: 100%;
             bottom: 15px;
             width: 100%;
-            .addNewNavBtn, .cancelBtn {
-                width: 40%;
+            .confirmBtn, .cancelBtn {
+                width: 30%;
                 text-align: center;
+                background: grey;
+                border-radius: 10px;
+                padding: 5px 0;
+                opacity: 0.3;
+                &:hover {
+                    opacity: 1;
+                }
+            }
+            .confirmBtn {
+                margin-left: 10%;
             }
             .cancelBtn {
                 margin-left: 20%;
+            }
+        }
+    }
+    
+    &.dark {
+        .content {
+            background: rgb(77, 77, 77);
+            color: rgba(255, 255, 255, 0.822);
+            .btnContainer {
+                .confirmBtn, .cancelBtn {
+                    color: black;
+                    background: white;
+                }
             }
         }
     }

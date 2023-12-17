@@ -22,7 +22,7 @@ function ConfirmPopup({ oldTitle, newTitle, onConfirm, isShowConfirmPopup, setIs
                     Are you sure to change title from { oldTitle } to { newTitle } ?
                 </div>
                 <div className="btnContainer">
-                    <button className="addNewNavBtn" onClick={ onConfirm }>Confirm</button>
+                    <button className="confirmBtn" onClick={ onConfirm }>Confirm</button>
                     <button className="cancelBtn" onClick={ () => setIsShowConfirmPopup(false)}>Cancel</button>
                 </div>
             </div>

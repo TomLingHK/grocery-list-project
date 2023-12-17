@@ -33,8 +33,18 @@
             bottom: 15px;
             width: 100%;
             .addNewNavBtn, .cancelBtn {
-                width: 40%;
+                width: 30%;
                 text-align: center;
+                background: grey;
+                border-radius: 10px;
+                padding: 5px 0;
+                opacity: 0.3;
+                &:hover {
+                    opacity: 1;
+                }
+            }
+            .addNewNavBtn { 
+                margin-left: 10%;
             }
             .cancelBtn {
                 margin-left: 20%;
@@ -46,6 +56,12 @@
         .addPopupInputSection {
             background: rgb(77, 77, 77);
             color: rgba(255, 255, 255, 0.822);
+            .btnContainer {
+                .addNewNavBtn, .cancelBtn {
+                    color: black;
+                    background: white;
+                }
+            }
         }
     }
 }
