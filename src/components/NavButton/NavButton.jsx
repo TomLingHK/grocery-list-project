@@ -16,12 +16,17 @@ function NavButton({ children, index, handleClick, setTitle, dataId }) {
     const [newTitle, setNewTitle] = useState(children.title);
 
     function onTickClick() {
-        setTitle(children.title, newTitle, dataId);
-        setIsEditing(false);
+        if (newTitle !== children.title) {
+            setTitle(children.title, newTitle, dataId);
+            setIsEditing(false);
+        }
+        else setIsEditing(false)
     }
 
     if (isEditing)
         setTimeout(() => document.getElementById("titleInput").focus(), 0);
+    else if (newTitle !== children.title)
+        setNewTitle(children.title);
 
     return (
         <div className={ className }>
