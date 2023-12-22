@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { db } from "./config/firebase-config";
-import { getDocs, collection, addDoc, Timestamp, query, orderBy, doc, updateDoc } from "firebase/firestore";
+import { getDocs, collection, addDoc, Timestamp, query, orderBy, doc, updateDoc, deleteDoc } from "firebase/firestore";
 
 import ThemeContext from "./context/ThemeContext";
 
@@ -19,9 +19,10 @@ function App() {
     const [navList, setNavList] = useState([]);
     const [isShowAddPopup, setIsShowAddPopup] = useState(false);
     const [isShowConfirmPopup, setIsShowConfirmPopup] = useState(false);
-    const [oldTitle, setOldTitle] = useState('');
+
     const [newTitle, setNewTitle] = useState('');
     const [curDataId , setCurDataId] = useState('');
+    const [message, setMessage] = useState('');
 
     // New Nav States
     const [newNavTitle, setNewNavTitle] = useState("");
@@ -81,11 +82,15 @@ function App() {
         getNavList();
 
         function resetConfirmPopupData() {
-            setOldTitle('');
             setNewTitle('');
             setIsShowConfirmPopup(false);
             setCurDataId('');
         }
+    }
+
+    const deleteNavBtn = async () => {
+        const navBarDoc = doc(db, "navBar", curDataId);
+        await deleteDoc;
     }
 
     function handleClick(index) {
@@ -93,10 +98,14 @@ function App() {
     }
 
     function setTitle(oldTitle, newTitle, dataId) {
-        setOldTitle(oldTitle);
-        setNewTitle(newTitle);
         setIsShowConfirmPopup(true);
         setCurDataId(dataId);
+
+        let text =" Are you sure to change title from { oldTitle } to { newTitle } ?" ;
+        text = text.replace('{ oldTitle }', oldTitle);
+        text = text.replace('{ newTitle }', newTitle);
+        setMessage(text);
+        setNewTitle(newTitle);
     }
     
     return (
@@ -122,8 +131,7 @@ function App() {
                     setIsShowAddPopup={setIsShowAddPopup}
                 ></AddPopup>
                 <ConfirmPopup
-                    oldTitle={oldTitle}
-                    newTitle={newTitle}
+                    message={message}
                     onConfirm={updateNavBtnTitle}
                     isShowConfirmPopup={isShowConfirmPopup}
                     setIsShowConfirmPopup={setIsShowConfirmPopup}
