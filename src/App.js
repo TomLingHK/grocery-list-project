@@ -69,6 +69,7 @@ function App() {
                 colCount: 3,
             });
             
+            setIsShowAddPopup(false);
             getNavList();
         } catch (error) {
             console.error(error);
