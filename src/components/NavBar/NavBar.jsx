@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import './NavBar.scss';
 import NavButton from '../NavButton/NavButton';
 
-function NavBar({ items, handleClick, setIsShowAddPopup, setTitle }) {
+function NavBar({ items, handleClick, setIsShowAddPopup, newTitleConfirm, deleteTitleConfirm }) {
     useEffect(() => {
         console.log("NavBar rendered: ", items);
     })
@@ -13,7 +13,13 @@ function NavBar({ items, handleClick, setIsShowAddPopup, setTitle }) {
             {items.map((item, index) => {
                 return (
                     <div key={ index } className={ item.title }>
-                        <NavButton index={ index } handleClick={ handleClick } setTitle={ setTitle } dataId={ item.id } >
+                        <NavButton 
+                            index={ index } 
+                            handleClick={ handleClick } 
+                            newTitleConfirm={ newTitleConfirm } 
+                            deleteTitleConfirm= { deleteTitleConfirm }
+                            dataId={ item.id } 
+                        >
                             { item }
                         </NavButton>
                     </div>

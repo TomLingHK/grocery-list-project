@@ -6,7 +6,7 @@ import ThemeContext from '../../context/ThemeContext';
 
 import './NavButton.scss';
 
-function NavButton({ children, index, handleClick, setTitle, dataId }) {
+function NavButton({ children, index, handleClick, newTitleConfirm, deleteTitleConfirm, dataId }) {
     const isTesting = children.testing ? "isTesting" : "notTesting";
 
     const theme = useContext(ThemeContext);
@@ -17,10 +17,16 @@ function NavButton({ children, index, handleClick, setTitle, dataId }) {
 
     function onTickClick() {
         if (newTitle !== children.title) {
-            setTitle(children.title, newTitle, dataId);
+            newTitleConfirm(children.title, newTitle, dataId);
             setIsEditing(false);
         }
         else setIsEditing(false)
+    }
+
+    function onDeleteClick() {
+console.warn('onDeleteClick');
+        deleteTitleConfirm(children.title, dataId);
+        setIsEditing(false);
     }
 
     if (isEditing)
@@ -48,7 +54,7 @@ function NavButton({ children, index, handleClick, setTitle, dataId }) {
                     </div>
                 </>
             }
-            <div className="DeleteButtons">
+            <div className="DeleteButtons" onClick={ onDeleteClick }>
                 <FontAwesomeIcon className="DeleteButton" icon={icon({name: 'circle-xmark', style: 'solid'})} />
             </div>
         </div>

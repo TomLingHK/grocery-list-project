@@ -19,6 +19,7 @@ function App() {
     const [navList, setNavList] = useState([]);
     const [isShowAddPopup, setIsShowAddPopup] = useState(false);
     const [isShowConfirmPopup, setIsShowConfirmPopup] = useState(false);
+    const [confirmPopupConfirmFunction, setConfirmPopupConfirmFunction] = useState(() => {});
 
     const [newTitle, setNewTitle] = useState('');
     const [curDataId , setCurDataId] = useState('');
@@ -85,19 +86,29 @@ function App() {
             setNewTitle('');
             setIsShowConfirmPopup(false);
             setCurDataId('');
+            setConfirmPopupConfirmFunction(() => {});
         }
     }
 
     const deleteNavBtn = async () => {
         const navBarDoc = doc(db, "navBar", curDataId);
-        await deleteDoc;
+        await deleteDoc(navBarDoc);
+        
+        resetConfirmPopupData();
+        getNavList();
+        
+        function resetConfirmPopupData() {
+            setIsShowConfirmPopup(false);
+            setCurDataId('');
+            setConfirmPopupConfirmFunction(() => {});
+        }
     }
 
     function handleClick(index) {
         setSelected(index);
     }
 
-    function setTitle(oldTitle, newTitle, dataId) {
+    function newTitleConfirm(oldTitle, newTitle, dataId) {
         setIsShowConfirmPopup(true);
         setCurDataId(dataId);
 
@@ -106,6 +117,17 @@ function App() {
         text = text.replace('{ newTitle }', newTitle);
         setMessage(text);
         setNewTitle(newTitle);
+        setConfirmPopupConfirmFunction(() => updateNavBtnTitle);
+    }
+
+    function deleteTitleConfirm(title, dataId) {
+        setCurDataId(dataId);
+        setIsShowConfirmPopup(true);
+
+        let text =" Are you sure to delete all data of { title } ?" ;
+        text = text.replace('{ title }', title);
+        setMessage(text);
+        setConfirmPopupConfirmFunction(() => deleteNavBtn);
     }
     
     return (
@@ -116,7 +138,8 @@ function App() {
                         items={navList} 
                         handleClick={ handleClick } 
                         setIsShowAddPopup={ setIsShowAddPopup }
-                        setTitle = { setTitle }
+                        newTitleConfirm = { newTitleConfirm }
+                        deleteTitleConfirm = { deleteTitleConfirm }
                     ></NavBar>
                     <TableContent content={ navList[selected]?.tableContent } rowCount = { navList[selected]?.rowCount } colCount = { navList[selected]?.colCount }></TableContent>
                     <ThemeButton setTheme={ setTheme }></ThemeButton>
@@ -132,7 +155,7 @@ function App() {
                 ></AddPopup>
                 <ConfirmPopup
                     message={message}
-                    onConfirm={updateNavBtnTitle}
+                    onConfirm={confirmPopupConfirmFunction}
                     isShowConfirmPopup={isShowConfirmPopup}
                     setIsShowConfirmPopup={setIsShowConfirmPopup}
                 ></ConfirmPopup>
