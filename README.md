@@ -4,13 +4,13 @@ This is a project aims to practice React framework and interact between database
 
 # Features to be implemented
 
-- [ ] Dark mode
+- [x] Dark mode
 
 - [x] Clickable nav bar
 
 - [x] Able to modify title of nav button
 
-- [ ] Able to add new item in nav bar
+- [x] Able to add new item in nav bar
 
 - [ ] Table
 
