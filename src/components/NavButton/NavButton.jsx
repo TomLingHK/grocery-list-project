@@ -24,7 +24,6 @@ function NavButton({ children, index, handleClick, newTitleConfirm, deleteTitleC
     }
 
     function onDeleteClick() {
-console.warn('onDeleteClick');
         deleteTitleConfirm(children.title, dataId);
         setIsEditing(false);
     }
