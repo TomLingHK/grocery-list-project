@@ -15,15 +15,17 @@ import ConfirmPopup from "./components/ConfirmPopup/ConfirmPopup";
 
 function App() {
     const [selected, setSelected] = useState(0);
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState('dark');
     const [navList, setNavList] = useState([]);
     const [isShowAddPopup, setIsShowAddPopup] = useState(false);
     const [isShowConfirmPopup, setIsShowConfirmPopup] = useState(false);
     const [confirmPopupConfirmFunction, setConfirmPopupConfirmFunction] = useState(() => {});
 
+    // Confirm Popup States
     const [newTitle, setNewTitle] = useState('');
     const [curDataId , setCurDataId] = useState('');
     const [message, setMessage] = useState('');
+    const [newTableContent, setNewTableContent] = useState({});
 
     // New Nav States
     const [newNavTitle, setNewNavTitle] = useState("");
@@ -105,6 +107,20 @@ function App() {
         }
     }
 
+    const updateTableContent = async () => {
+        const navBarDoc = doc(db, "navBar", curDataId);
+        await updateDoc(navBarDoc, {tableContent: newTableContent});
+        
+        resetConfirmPopupData();
+        getNavList();
+        
+        function resetConfirmPopupData() {
+            setIsShowConfirmPopup(false);
+            setCurDataId('');
+            setNewTableContent({});
+        }
+    }
+
     function handleClick(index) {
         setSelected(index);
     }
@@ -130,6 +146,20 @@ function App() {
         setMessage(text);
         setConfirmPopupConfirmFunction(() => deleteNavBtn);
     }
+
+    function updateTableContentConfirm() {
+
+        let text =" Are you sure to update the table?" ;
+        setMessage(text);
+        // setConfirmPopupConfirmFunction(() => );
+    }
+
+    function discardTableContentConfirm() {
+        
+        let text =" Are you sure to discard all the changes?" ;
+        setMessage(text);
+        // setConfirmPopupConfirmFunction(() => );
+    }
     
     return (
         <ThemeContext.Provider value={theme}>
@@ -142,7 +172,13 @@ function App() {
                         newTitleConfirm = { newTitleConfirm }
                         deleteTitleConfirm = { deleteTitleConfirm }
                     ></NavBar>
-                    <TableContent content={ navList[selected]?.tableContent } rowCount = { navList[selected]?.rowCount } colCount = { navList[selected]?.colCount }></TableContent>
+                    <TableContent 
+                        content={ navList[selected]?.tableContent } 
+                        rowCount = { navList[selected]?.rowCount } 
+                        colCount = { navList[selected]?.colCount }
+                        updateTableContentConfirm={ updateTableContentConfirm }
+                        discardTableContentConfirm={ discardTableContentConfirm }
+                    ></TableContent>
                     <ThemeButton setTheme={ setTheme }></ThemeButton>
                     <Authentication/>
                 </div>

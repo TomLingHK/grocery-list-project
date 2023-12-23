@@ -11,7 +11,7 @@ function ThemeButton({ setTheme }) {
         <label className={ className }>
             <input
                 type="checkbox"
-                // checked={theme === 'dark'}
+                checked={theme === 'dark'}
                 onChange={(e) => {
                     setTheme(e.target.checked ? 'dark' : 'light')
                 }}

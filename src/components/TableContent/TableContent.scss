@@ -1,12 +1,22 @@
 .TableContent {
-    #EditButton {
+    padding-bottom: 25px;
+
+    #EditButton, #EditingButton {
         position: absolute;
         right: 10px;
         height: 25px;
         color: rgb(25, 247, 255);
-        transition-duration: 400ms;
         display: inline-flex;
         align-items: center;
+
+        .text {
+            margin-left: 6px;
+        }
+    }
+
+    #EditButton {
+        transition-duration: 400ms;
+        cursor: pointer;
 
         .EditButton_normal {
             display: block;
@@ -22,16 +32,11 @@
             .EditButton_hover {
                 display: block;
             }
-            cursor: pointer;
-        }
-
-        .EditButtons {
-            margin-right: 6px;
         }
     }
 
     #MainContent {
-        padding-top: 25px;
+        padding-top: 30px;
 
         ul {
             list-style-type: none;
@@ -47,10 +52,47 @@
                 text-align: center;
                 padding: 10px;
                 border: 1px solid;
+                input {
+                    color: black;
+                }
             }
         }
     }
 
+    #ActionContainer {
+        position: absolute;
+        right: 10px;
+        display: inline-flex;
+        height: 40px;
+        margin: 0 auto;
+        transition: transform 200ms ease-in-out;
+        #ConfirmButton {
+            cursor: pointer;
+            .confirmButton {
+                color: rgb(47, 255, 47);
+                margin: 0 10px;
+                opacity: 0.3;
+                transition-duration: 400ms;
+        
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+
+        #CancelButton {
+            cursor: pointer;
+            .cancelButton {
+                color: red;
+                margin: 0 10px;
+                opacity: 0.3;
+                transition-duration: 400ms;
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
 
     #addRowContainer {
         height: 40px;
