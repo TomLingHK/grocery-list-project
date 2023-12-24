@@ -6,7 +6,7 @@ import ThemeContext from '../../context/ThemeContext';
 
 import './TableContent.scss'
 
-function TableContent({ content, rowCount, colCount, updateTableContentConfirm, discardTableContentConfirm }) {
+function TableContent({ content, rowCount, colCount, updateTableContentConfirm, discardTableContentConfirm, dataId }) {
     const theme = useContext(ThemeContext);
     const [isEditing, setIsEditing] = useState(false);
     const className = "TableContent " + theme;
@@ -15,7 +15,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
         console.log("TableContent rendered: ");
     })
 
-    const temp_content = content != undefined ? JSON.parse(JSON.stringify(content)) : '';
+    const temp_content = content !== undefined ? JSON.parse(JSON.stringify(content)) : '';
     const orderedContent = [];
     for (let i = 0; i < rowCount; i++) {
         orderedContent.push('row' + i);
@@ -23,6 +23,11 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
 
     function setNewTableContent(newValue, row, col) {
         temp_content['row' + row][col] = newValue;
+    }
+
+    function onConfirmClick() {
+        updateTableContentConfirm(temp_content, dataId);
+        setIsEditing(false);
     }
 
     if (content === undefined) return(<></>)
@@ -53,7 +58,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                     </div>
                     <div id="ActionContainer">
                         <div id="ConfirmButton">
-                            <FontAwesomeIcon className="confirmButton" icon={icon({name: 'circle-check', style: 'solid'})} />
+                            <FontAwesomeIcon className="confirmButton" icon={icon({name: 'circle-check', style: 'solid'})} onClick={ onConfirmClick } />
                         </div>
                         <div id="CancelButton">
                             <FontAwesomeIcon className="cancelButton" icon={icon({name: 'circle-xmark', style: 'solid'})} />

@@ -12,12 +12,16 @@ This is a project aims to practice React framework and interact between database
 
 - [x] Able to add new item in nav bar
 
-- [ ] Table
+- [x] Table
 
-- [ ] Able to add new row for table
+- [ ] Able to add new row / col for table
 
-- [ ] Modify data
+- [x] Modify data
 
 - [ ] Able to upload pictures
 
-- [x] Bug: After updating title of nav button, data is not updated immediately
+- [ ] Authorization
+
+- [ ] Responsive design
+
+- [ ] React Native

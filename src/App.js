@@ -22,10 +22,7 @@ function App() {
     const [confirmPopupConfirmFunction, setConfirmPopupConfirmFunction] = useState(() => {});
 
     // Confirm Popup States
-    const [newTitle, setNewTitle] = useState('');
-    const [curDataId , setCurDataId] = useState('');
     const [message, setMessage] = useState('');
-    const [newTableContent, setNewTableContent] = useState({});
 
     // New Nav States
     const [newNavTitle, setNewNavTitle] = useState("");
@@ -78,23 +75,21 @@ function App() {
         }
     };
 
-    const updateNavBtnTitle = async () => {
-        const navBarDoc = doc(db, "navBar", curDataId);
+    const updateNavBtnTitle = async (dataId, newTitle) => {
+        const navBarDoc = doc(db, "navBar", dataId);
         await updateDoc(navBarDoc, {title: newTitle});
 
         resetConfirmPopupData();
         getNavList();
 
         function resetConfirmPopupData() {
-            setNewTitle('');
             setIsShowConfirmPopup(false);
-            setCurDataId('');
             setConfirmPopupConfirmFunction(() => {});
         }
     }
 
-    const deleteNavBtn = async () => {
-        const navBarDoc = doc(db, "navBar", curDataId);
+    const deleteNavBtn = async (dataId) => {
+        const navBarDoc = doc(db, "navBar", dataId);
         await deleteDoc(navBarDoc);
         
         resetConfirmPopupData();
@@ -102,13 +97,12 @@ function App() {
         
         function resetConfirmPopupData() {
             setIsShowConfirmPopup(false);
-            setCurDataId('');
             setConfirmPopupConfirmFunction(() => {});
         }
     }
 
-    const updateTableContent = async () => {
-        const navBarDoc = doc(db, "navBar", curDataId);
+    const updateTableContent = async (dataId, newTableContent) => {
+        const navBarDoc = doc(db, "navBar", dataId);
         await updateDoc(navBarDoc, {tableContent: newTableContent});
         
         resetConfirmPopupData();
@@ -116,8 +110,6 @@ function App() {
         
         function resetConfirmPopupData() {
             setIsShowConfirmPopup(false);
-            setCurDataId('');
-            setNewTableContent({});
         }
     }
 
@@ -127,31 +119,29 @@ function App() {
 
     function newTitleConfirm(oldTitle, newTitle, dataId) {
         setIsShowConfirmPopup(true);
-        setCurDataId(dataId);
 
         let text =" Are you sure to change title from { oldTitle } to { newTitle } ?" ;
         text = text.replace('{ oldTitle }', oldTitle);
         text = text.replace('{ newTitle }', newTitle);
         setMessage(text);
-        setNewTitle(newTitle);
-        setConfirmPopupConfirmFunction(() => updateNavBtnTitle);
+        setConfirmPopupConfirmFunction(() => () => updateNavBtnTitle(dataId, newTitle));
     }
 
     function deleteTitleConfirm(title, dataId) {
-        setCurDataId(dataId);
         setIsShowConfirmPopup(true);
 
         let text =" Are you sure to delete all data of { title } ?" ;
         text = text.replace('{ title }', title);
         setMessage(text);
-        setConfirmPopupConfirmFunction(() => deleteNavBtn);
+        setConfirmPopupConfirmFunction(() => () => deleteNavBtn(dataId));
     }
 
-    function updateTableContentConfirm() {
+    function updateTableContentConfirm(newTableContent, dataId) {
+        setIsShowConfirmPopup(true);
 
         let text =" Are you sure to update the table?" ;
         setMessage(text);
-        // setConfirmPopupConfirmFunction(() => );
+        setConfirmPopupConfirmFunction(() => () => updateTableContent(dataId, newTableContent));
     }
 
     function discardTableContentConfirm() {
@@ -178,6 +168,7 @@ function App() {
                         colCount = { navList[selected]?.colCount }
                         updateTableContentConfirm={ updateTableContentConfirm }
                         discardTableContentConfirm={ discardTableContentConfirm }
+                        dataId={ navList[selected]?.id } 
                     ></TableContent>
                     <ThemeButton setTheme={ setTheme }></ThemeButton>
                     <Authentication/>
