@@ -155,11 +155,18 @@ function App() {
         });
     }
 
-    function discardTableContentConfirm() {
+    function discardTableContentConfirm(callbackFunction) {
+        setIsShowConfirmPopup(true);
         
         let text =" Are you sure to discard all the changes?" ;
         setMessage(text);
-        // setConfirmPopupConfirmFunction(() => );
+
+        setConfirmPopupConfirmFunction(() => {
+            return () => {
+                callbackFunction();
+                setIsShowConfirmPopup(false);
+            };
+        });
     }
     
     return (

@@ -11,14 +11,31 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     const [isEditing, setIsEditing] = useState(false);
     const className = "TableContent " + theme;
 
-    useEffect(() => {
-        console.log("TableContent rendered: ");
-    })
-
     const temp_content = content !== undefined ? JSON.parse(JSON.stringify(content)) : '';
     const orderedContent = [];
     for (let i = 0; i < rowCount; i++) {
         orderedContent.push('row' + i);
+    }
+
+    useEffect(() => {
+        console.log("TableContent rendered: ");
+    })
+
+    function shallowEqual(object1, object2) {
+        const keys1 = Object.keys(object1);
+        const keys2 = Object.keys(object2);
+      
+        if (keys1.length !== keys2.length) {
+            return false;
+        }
+      
+        for (let key of keys1) {
+            if (JSON.stringify(object1[key]) !== JSON.stringify(object2[key])) {
+                return false;
+            }
+        }
+      
+        return true;
     }
 
     function setNewTableContent(newValue, row, col) {
@@ -26,8 +43,21 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     }
 
     function onConfirmClick() {
-        const callbackFunction = function() {setIsEditing(false)};
-        updateTableContentConfirm(temp_content, dataId, callbackFunction);
+        const contentChanged = !shallowEqual(content, temp_content);
+        if (contentChanged) {
+            const callbackFunction = function() {setIsEditing(false)};
+            updateTableContentConfirm(temp_content, dataId, callbackFunction);
+        }
+        else setIsEditing(false);
+    }
+
+    function onCancelClick() {
+        const contentChanged = !shallowEqual(content, temp_content);
+        if (contentChanged) {
+            const callbackFunction = function() {setIsEditing(false)};
+            discardTableContentConfirm(callbackFunction);
+        }
+        else setIsEditing(false);
     }
 
     if (content === undefined) return(<></>)
@@ -39,7 +69,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                 isEditing
                 ?
                 <>
-                    <div id="EditingButton" onClick={ () => {setIsEditing(false)}}>
+                    <div id="EditingButton">
                         <div className="editingButton">
                             <FontAwesomeIcon className="EditButton_hover" icon={icon({name: 'pen-to-square', style: 'solid'})} />
                         </div>
@@ -61,7 +91,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                             <FontAwesomeIcon className="confirmButton" icon={icon({name: 'circle-check', style: 'solid'})} onClick={ onConfirmClick } />
                         </div>
                         <div id="CancelButton">
-                            <FontAwesomeIcon className="cancelButton" icon={icon({name: 'circle-xmark', style: 'solid'})} />
+                            <FontAwesomeIcon className="cancelButton" icon={icon({name: 'circle-xmark', style: 'solid'})} onClick={ onCancelClick }/>
                         </div>
                     </div>
                 </>
