@@ -117,14 +117,19 @@ function App() {
         setSelected(index);
     }
 
-    function newTitleConfirm(oldTitle, newTitle, dataId) {
+    function newTitleConfirm(oldTitle, newTitle, dataId, callbackFunction) {
         setIsShowConfirmPopup(true);
 
         let text =" Are you sure to change title from { oldTitle } to { newTitle } ?" ;
         text = text.replace('{ oldTitle }', oldTitle);
         text = text.replace('{ newTitle }', newTitle);
         setMessage(text);
-        setConfirmPopupConfirmFunction(() => () => updateNavBtnTitle(dataId, newTitle));
+        setConfirmPopupConfirmFunction(() => {
+            return () => {
+                updateNavBtnTitle(dataId, newTitle)
+                callbackFunction();
+            };
+        });
     }
 
     function deleteTitleConfirm(title, dataId) {
@@ -136,12 +141,18 @@ function App() {
         setConfirmPopupConfirmFunction(() => () => deleteNavBtn(dataId));
     }
 
-    function updateTableContentConfirm(newTableContent, dataId) {
+    function updateTableContentConfirm(newTableContent, dataId, callbackFunction) {
         setIsShowConfirmPopup(true);
 
         let text =" Are you sure to update the table?" ;
         setMessage(text);
-        setConfirmPopupConfirmFunction(() => () => updateTableContent(dataId, newTableContent));
+
+        setConfirmPopupConfirmFunction(() => {
+            return () => {
+                updateTableContent(dataId, newTableContent);
+                callbackFunction();
+            };
+        });
     }
 
     function discardTableContentConfirm() {

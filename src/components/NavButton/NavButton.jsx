@@ -17,15 +17,14 @@ function NavButton({ children, index, handleClick, newTitleConfirm, deleteTitleC
 
     function onTickClick() {
         if (newTitle !== children.title) {
-            newTitleConfirm(children.title, newTitle, dataId);
-            setIsEditing(false);
+            const callbackFunction = function() {setIsEditing(false)};
+            newTitleConfirm(children.title, newTitle, dataId, callbackFunction);
         }
         else setIsEditing(false)
     }
 
     function onDeleteClick() {
         deleteTitleConfirm(children.title, dataId);
-        setIsEditing(false);
     }
 
     if (isEditing)

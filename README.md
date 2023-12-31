@@ -18,6 +18,8 @@ This is a project aims to practice React framework and interact between database
 
 - [x] Modify data
 
+- [ ] Pass object to components and use destructuring
+
 - [ ] Able to upload pictures
 
 - [ ] Authorization

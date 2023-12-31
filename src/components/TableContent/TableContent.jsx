@@ -26,8 +26,8 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     }
 
     function onConfirmClick() {
-        updateTableContentConfirm(temp_content, dataId);
-        setIsEditing(false);
+        const callbackFunction = function() {setIsEditing(false)};
+        updateTableContentConfirm(temp_content, dataId, callbackFunction);
     }
 
     if (content === undefined) return(<></>)
