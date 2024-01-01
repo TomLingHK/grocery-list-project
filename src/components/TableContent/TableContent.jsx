@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
@@ -11,7 +11,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     const [isEditing, setIsEditing] = useState(false);
     const className = "TableContent " + theme;
 
-    const temp_content = content !== undefined ? JSON.parse(JSON.stringify(content)) : '';
+    let temp_content = useRef({});
     const orderedContent = [];
     for (let i = 0; i < rowCount; i++) {
         orderedContent.push('row' + i);
@@ -20,6 +20,10 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     useEffect(() => {
         console.log("TableContent rendered: ");
     })
+
+    useEffect(() => {
+        temp_content.current = content !== undefined ? JSON.parse(JSON.stringify(content)) : '';
+    }, [content])
 
     function shallowEqual(object1, object2) {
         const keys1 = Object.keys(object1);
@@ -39,20 +43,20 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     }
 
     function setNewTableContent(newValue, row, col) {
-        temp_content['row' + row][col] = newValue;
+        temp_content.current['row' + row][col] = newValue;
     }
 
     function onConfirmClick() {
-        const contentChanged = !shallowEqual(content, temp_content);
+        const contentChanged = !shallowEqual(content, temp_content.current);
         if (contentChanged) {
             const callbackFunction = function() {setIsEditing(false)};
-            updateTableContentConfirm(temp_content, dataId, callbackFunction);
+            updateTableContentConfirm(temp_content.current, dataId, callbackFunction);
         }
         else setIsEditing(false);
     }
 
     function onCancelClick() {
-        const contentChanged = !shallowEqual(content, temp_content);
+        const contentChanged = !shallowEqual(content, temp_content.current);
         if (contentChanged) {
             const callbackFunction = function() {setIsEditing(false)};
             discardTableContentConfirm(callbackFunction);
