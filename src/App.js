@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { db } from "./config/firebase-config";
+import { db, storage } from "./config/firebase-config";
 import { getDocs, collection, addDoc, Timestamp, query, orderBy, doc, updateDoc, deleteDoc } from "firebase/firestore";
 
 import ThemeContext from "./context/ThemeContext";
@@ -12,6 +12,8 @@ import ThemeButton from "./components/ThemeButton/ThemeButton";
 import Authentication from "./components/Authentication/Authentication";
 import AddPopup from "./components/AddPopup/AddPopup";
 import ConfirmPopup from "./components/ConfirmPopup/ConfirmPopup";
+import UploadImage from "./components/UploadImage/UploadImage";
+import { ref, uploadBytes } from "firebase/storage";
 
 function App() {
     const [selected, setSelected] = useState(0);
@@ -20,6 +22,7 @@ function App() {
     const [isShowAddPopup, setIsShowAddPopup] = useState(false);
     const [isShowConfirmPopup, setIsShowConfirmPopup] = useState(false);
     const [confirmPopupConfirmFunction, setConfirmPopupConfirmFunction] = useState(() => {});
+    const [imageUpload, setImageUpload] = useState(null);
 
     // Confirm Popup States
     const [message, setMessage] = useState('');
@@ -113,6 +116,17 @@ function App() {
         }
     }
 
+    const uploadFile = async () => {
+        if (!imageUpload) return;
+
+        const filesFolderRef = ref(storage, `images/${imageUpload.name}`);
+        try {
+            await uploadBytes(filesFolderRef, imageUpload);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     function handleClick(index) {
         setSelected(index);
     }
@@ -190,6 +204,7 @@ function App() {
                     ></TableContent>
                     <ThemeButton setTheme={ setTheme }></ThemeButton>
                     <Authentication/>
+                    <UploadImage setImageUpload={ setImageUpload } uploadFile={ uploadFile }/>
                 </div>
                 <AddPopup 
                     setNewNavTitle={setNewNavTitle} 
