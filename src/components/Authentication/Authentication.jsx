@@ -25,11 +25,11 @@ function Authentication() {
     return (
         <div>
             {/* TODO change UI after clicking login */}
-            <button id="googleSignInBtn" className="authbtn" onClick={signInWithGoogle}>
+            <button id="GoogleSignInBtn" className="authbtn" onClick={signInWithGoogle}>
                 Sign In With Google
             </button>
             {/* TODO change UI after clicking logout */}
-            <button id="logOutBtn" className="authbtn" onClick={logOut}>
+            <button id="LogOutBtn" className="authbtn" onClick={logOut}>
                 Sign out
             </button>
         </div>

@@ -9,7 +9,7 @@ import './TableContent.scss'
 function TableContent({ content, rowCount, colCount, updateTableContentConfirm, discardTableContentConfirm, dataId }) {
     const theme = useContext(ThemeContext);
     const [isEditing, setIsEditing] = useState(false);
-    const className = "TableContent " + theme;
+    const className = "tableContent " + theme;
 
     let temp_content = useRef({});
     const orderedContent = [];
@@ -103,8 +103,8 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                 <>
                     <div id="EditButton" onClick={ () => {setIsEditing(true)}}>
                         <div className="editButtons">
-                            <FontAwesomeIcon className="EditButton_normal" icon={icon({name: 'pen-to-square', style: 'regular'})} />
-                            <FontAwesomeIcon className="EditButton_hover" icon={icon({name: 'pen-to-square', style: 'solid'})} />
+                            <FontAwesomeIcon className="editButton_normal" icon={icon({name: 'pen-to-square', style: 'regular'})} />
+                            <FontAwesomeIcon className="editButton_hover" icon={icon({name: 'pen-to-square', style: 'solid'})} />
                         </div>
                         <div className="text">
                             Edit
@@ -119,7 +119,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                             </ul>)
                         })}
                     </div>
-                    <div id="addRowContainer">
+                    <div id="AddRowContainer">
                         <div id="AddRowButton">
                             +
                         </div>

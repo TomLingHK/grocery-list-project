@@ -1,4 +1,4 @@
-.NavButton {
+.navButton {
     cursor: pointer;
     font-size: large;
     font-weight: 900;
@@ -7,7 +7,7 @@
     padding: 10px 50px;
     border: 2px solid black;
     
-    .NavButtonTitle {
+    .navButtonTitle {
         margin-right: 15px;
         transition: transform 200ms ease-in-out;
         &:hover {
@@ -30,7 +30,7 @@
         }
     }
 
-    .TickButton {
+    .tickButton {
         color: rgb(47, 255, 47);
         margin: 0 10px;
         opacity: 0.3;
@@ -41,37 +41,37 @@
         }
     }
 
-    .EditButtons {
+    .editButtons {
         color: rgb(255, 151, 25);
         margin-right: 10px;
         transition-duration: 400ms;
 
-        .EditButton_normal {
+        .editButton_normal {
             display: block;
         }
-        .EditButton_hover {
+        .editButton_hover {
             display: none;
         }
 
         &:hover {
-            .EditButton_normal {
+            .editButton_normal {
                 display: none;
             }
-            .EditButton_hover {
+            .editButton_hover {
                 display: block;
             }
         }
     }
 
-    .DeleteButtons {
-        .DeleteButton {
+    .deleteButtons {
+        .deleteButton {
             color: red;
             opacity: 0.3;
             transition-duration: 400ms;
         }
 
         &:hover {
-            .DeleteButton {
+            .deleteButton {
                 opacity: 1;
             }
         }
@@ -80,13 +80,13 @@
 
     &.dark {
         &.isTesting {
-            .NavButtonTitle {
+            .navButtonTitle {
                 color: rgb(255, 98, 98);
             }
         }
     
         &.notTesting {
-            .NavButtonTitle {
+            .navButtonTitle {
                 color: green;
             }
         }

@@ -10,7 +10,7 @@ function NavButton({ children, index, handleClick, newTitleConfirm, deleteTitleC
     const isTesting = children.testing ? "isTesting" : "notTesting";
 
     const theme = useContext(ThemeContext);
-    const className = "NavButton " + theme + " " + isTesting;
+    const className = "navButton " + theme + " " + isTesting;
 
     const [isEditing, setIsEditing] = useState(false);
     const [newTitle, setNewTitle] = useState(children.title);
@@ -39,21 +39,21 @@ function NavButton({ children, index, handleClick, newTitleConfirm, deleteTitleC
                 ?
                 <>
                     <input id="titleInput" type="text" value={ newTitle } onChange={(e) => setNewTitle(e.target.value)} />
-                    <FontAwesomeIcon className="TickButton" icon={icon({name: 'circle-check', style: 'solid'})} onClick={ onTickClick } />
+                    <FontAwesomeIcon className="tickButton" icon={icon({name: 'circle-check', style: 'solid'})} onClick={ onTickClick } />
                 </>
                 :
                 <>
-                    <div className="NavButtonTitle" onClick={ () => { handleClick(index) }}>
+                    <div className="navButtonTitle" onClick={ () => { handleClick(index) }}>
                         { children.title }
                     </div>
-                    <div className="EditButtons" onClick={ () => {setIsEditing(true)}}>
-                        <FontAwesomeIcon className="EditButton_normal" icon={icon({name: 'pen-to-square', style: 'regular'})} />
-                        <FontAwesomeIcon className="EditButton_hover" icon={icon({name: 'pen-to-square', style: 'solid'})} />
+                    <div className="editButtons" onClick={ () => {setIsEditing(true)}}>
+                        <FontAwesomeIcon className="editButton_normal" icon={icon({name: 'pen-to-square', style: 'regular'})} />
+                        <FontAwesomeIcon className="editButton_hover" icon={icon({name: 'pen-to-square', style: 'solid'})} />
                     </div>
                 </>
             }
-            <div className="DeleteButtons" onClick={ onDeleteClick }>
-                <FontAwesomeIcon className="DeleteButton" icon={icon({name: 'circle-xmark', style: 'solid'})} />
+            <div className="deleteButtons" onClick={ onDeleteClick }>
+                <FontAwesomeIcon className="deleteButton" icon={icon({name: 'circle-xmark', style: 'solid'})} />
             </div>
         </div>
     )

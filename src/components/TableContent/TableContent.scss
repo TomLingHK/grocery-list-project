@@ -1,4 +1,4 @@
-.TableContent {
+.tableContent {
     padding-bottom: 25px;
 
     #EditButton, #EditingButton {
@@ -18,18 +18,18 @@
         transition-duration: 400ms;
         cursor: pointer;
 
-        .EditButton_normal {
+        .editButton_normal {
             display: block;
         }
-        .EditButton_hover {
+        .editButton_hover {
             display: none;
         }
 
         &:hover {
-            .EditButton_normal {
+            .editButton_normal {
                 display: none;
             }
-            .EditButton_hover {
+            .editButton_hover {
                 display: block;
             }
         }
@@ -94,7 +94,7 @@
         }
     }
 
-    #addRowContainer {
+    #AddRowContainer {
         height: 40px;
         width: 90%;
         margin: 0 auto;

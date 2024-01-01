@@ -9,7 +9,7 @@ function NavBar({ items, handleClick, setIsShowAddPopup, newTitleConfirm, delete
     })
 
     return (
-        <div className="NavBar">
+        <div id="NavBar">
             {items.map((item, index) => {
                 return (
                     <div key={ index } className={ item.title }>
