@@ -16,11 +16,17 @@ This is a project aims to practice React framework and interact between database
 
 - [ ] Able to add new row / col for table
 
+- [ ] Able too delete row / col ( row0 cannot be deleted, at least 1 row and 1 col)
+
+- [ ] Reorder nav bar
+
 - [x] Modify data
 
 - [ ] Pass object to components and use destructuring
 
 - [ ] Able to upload pictures
+
+- [ ] Gallery to insert pictures in table content
 
 - [ ] Authorization
 
