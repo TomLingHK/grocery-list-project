@@ -106,7 +106,13 @@ function App() {
 
     const updateTableContent = async (dataId, newTableContent) => {
         const navBarDoc = doc(db, "navBar", dataId);
-        await updateDoc(navBarDoc, {tableContent: newTableContent});
+        const newRowCount = Object.keys(newTableContent).length;
+        const newColCount = newTableContent.row0.length;
+        await updateDoc(navBarDoc, {
+            tableContent: newTableContent,
+            rowCount: newRowCount,
+            colCount: newColCount
+        });
         
         resetConfirmPopupData();
         getNavList();

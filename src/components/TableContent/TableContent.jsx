@@ -9,7 +9,8 @@ import './TableContent.scss'
 function TableContent({ content, rowCount, colCount, updateTableContentConfirm, discardTableContentConfirm, dataId }) {
     const theme = useContext(ThemeContext);
     const [isEditing, setIsEditing] = useState(false);
-    const className = "tableContent " + theme;
+    const editingClass = isEditing ? ' editMode' : '';
+    const className = "tableContent " + theme + editingClass;
 
     let temp_content = useRef({});
     const orderedContent = [];
@@ -81,6 +82,11 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                             Editing
                         </div>
                     </div>
+                    <div id="AddColContainer">
+                        <div id="AddColButton">
+                            +
+                        </div>
+                    </div>
                     <div id="MainContent">
                         { orderedContent.map((row, rIndex) => {
                             return (<ul key={`Row${rIndex}`} className={ row }> 
@@ -89,6 +95,11 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                                 })}
                             </ul>)
                         })}
+                    </div>
+                    <div id="AddRowContainer">
+                        <div id="AddRowButton">
+                            +
+                        </div>
                     </div>
                     <div id="ActionContainer">
                         <div id="ConfirmButton">
@@ -118,11 +129,6 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                                 })}
                             </ul>)
                         })}
-                    </div>
-                    <div id="AddRowContainer">
-                        <div id="AddRowButton">
-                            +
-                        </div>
                     </div>
                 </>
             }
