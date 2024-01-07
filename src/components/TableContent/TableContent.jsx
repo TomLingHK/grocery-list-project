@@ -9,10 +9,11 @@ import './TableContent.scss'
 function TableContent({ content, rowCount, colCount, updateTableContentConfirm, discardTableContentConfirm, dataId }) {
     const theme = useContext(ThemeContext);
     const [isEditing, setIsEditing] = useState(false);
+    const [tempContent, setTempContent] = useState([]);
+
     const editingClass = isEditing ? ' editMode' : '';
     const className = "tableContent " + theme + editingClass;
 
-    let temp_content = useRef({});
     const orderedContent = [];
     for (let i = 0; i < rowCount; i++) {
         orderedContent.push('row' + i);
@@ -23,7 +24,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     })
 
     useEffect(() => {
-        temp_content.current = content !== undefined ? JSON.parse(JSON.stringify(content)) : '';
+        setTempContent(content !== undefined ? JSON.parse(JSON.stringify(content)) : '');
     }, [content])
 
     function shallowEqual(object1, object2) {
@@ -44,25 +45,45 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     }
 
     function setNewTableContent(newValue, row, col) {
-        temp_content.current['row' + row][col] = newValue;
+        const curRow = 'row' + row;
+        setTempContent( tempContent => ({
+            ...tempContent, 
+            [curRow]: {...tempContent[curRow], [col]: newValue}
+        }))
     }
 
     function onConfirmClick() {
-        const contentChanged = !shallowEqual(content, temp_content.current);
+        const contentChanged = !shallowEqual(content, tempContent);
         if (contentChanged) {
             const callbackFunction = function() {setIsEditing(false)};
-            updateTableContentConfirm(temp_content.current, dataId, callbackFunction);
+            updateTableContentConfirm(tempContent, dataId, callbackFunction);
         }
-        else setIsEditing(false);
+        else {
+            setIsEditing(false);
+        }
     }
 
     function onCancelClick() {
-        const contentChanged = !shallowEqual(content, temp_content.current);
+        const contentChanged = !shallowEqual(content, tempContent);
         if (contentChanged) {
             const callbackFunction = function() {setIsEditing(false)};
             discardTableContentConfirm(callbackFunction);
         }
-        else setIsEditing(false);
+        else {
+            setIsEditing(false);
+        }
+    }
+
+    function onEnterEditModeClick() {
+        setIsEditing(true)
+        setTempContent(content !== undefined ? JSON.parse(JSON.stringify(content)) : '');
+    }
+
+    function onAddRowClick() {
+    }
+
+    function onAddColClick() {
+
     }
 
     if (content === undefined) return(<></>)
@@ -83,7 +104,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                         </div>
                     </div>
                     <div id="AddColContainer">
-                        <div id="AddColButton">
+                        <div id="AddColButton" onClick={onAddColClick}>
                             +
                         </div>
                     </div>
@@ -97,7 +118,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                         })}
                     </div>
                     <div id="AddRowContainer">
-                        <div id="AddRowButton">
+                        <div id="AddRowButton" onClick={onAddRowClick}>
                             +
                         </div>
                     </div>
@@ -112,7 +133,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                 </>
                 :
                 <>
-                    <div id="EditButton" onClick={ () => {setIsEditing(true)}}>
+                    <div id="EditButton" onClick={onEnterEditModeClick}>
                         <div className="editButtons">
                             <FontAwesomeIcon className="editButton_normal" icon={icon({name: 'pen-to-square', style: 'regular'})} />
                             <FontAwesomeIcon className="editButton_hover" icon={icon({name: 'pen-to-square', style: 'solid'})} />

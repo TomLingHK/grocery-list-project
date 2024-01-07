@@ -68,7 +68,6 @@
         margin: 0 auto;
         transition: transform 200ms ease-in-out;
         #ConfirmButton {
-            cursor: pointer;
             .confirmButton {
                 color: rgb(47, 255, 47);
                 margin: 0 10px;
@@ -76,19 +75,20 @@
                 transition-duration: 400ms;
         
                 &:hover {
+                    cursor: pointer;
                     opacity: 1;
                 }
             }
         }
 
         #CancelButton {
-            cursor: pointer;
             .cancelButton {
                 color: red;
                 margin: 0 10px;
                 opacity: 0.3;
                 transition-duration: 400ms;
                 &:hover {
+                    cursor: pointer;
                     opacity: 1;
                 }
             }
