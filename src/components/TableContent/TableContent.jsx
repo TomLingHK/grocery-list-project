@@ -10,14 +10,10 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     const theme = useContext(ThemeContext);
     const [isEditing, setIsEditing] = useState(false);
     const [tempContent, setTempContent] = useState([]);
+    const [orderedContent, setOrderedContent] = useState([]);
 
     const editingClass = isEditing ? ' editMode' : '';
     const className = "tableContent " + theme + editingClass;
-
-    const orderedContent = [];
-    for (let i = 0; i < rowCount; i++) {
-        orderedContent.push('row' + i);
-    }
 
     useEffect(() => {
         console.log("TableContent rendered: ");
@@ -25,7 +21,21 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
 
     useEffect(() => {
         setTempContent(content !== undefined ? JSON.parse(JSON.stringify(content)) : '');
+        const orderArr = [];
+        for (let i = 0; i < rowCount; i++) {
+            orderArr.push('row' + i);
+        }
+        setOrderedContent(orderArr);
     }, [content])
+
+    function resetTempData() {
+        setTempContent(content !== undefined ? JSON.parse(JSON.stringify(content)) : '');
+        const orderArr = [];
+        for (let i = 0; i < rowCount; i++) {
+            orderArr.push('row' + i);
+        }
+        setOrderedContent(orderArr);
+    }
 
     function shallowEqual(object1, object2) {
         const keys1 = Object.keys(object1);
@@ -46,9 +56,13 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
 
     function setNewTableContent(newValue, row, col) {
         const curRow = 'row' + row;
-        setTempContent( tempContent => ({
+        const curRowContent = [...tempContent[curRow]];
+
+        curRowContent[col] = newValue;
+
+        setTempContent((tempContent)=>({
             ...tempContent, 
-            [curRow]: {...tempContent[curRow], [col]: newValue}
+            [curRow]: [...curRowContent]
         }))
     }
 
@@ -57,6 +71,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
         if (contentChanged) {
             const callbackFunction = function() {setIsEditing(false)};
             updateTableContentConfirm(tempContent, dataId, callbackFunction);
+            resetTempData();
         }
         else {
             setIsEditing(false);
@@ -68,6 +83,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
         if (contentChanged) {
             const callbackFunction = function() {setIsEditing(false)};
             discardTableContentConfirm(callbackFunction);
+            resetTempData();
         }
         else {
             setIsEditing(false);
@@ -80,6 +96,21 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     }
 
     function onAddRowClick() {
+        const colCount = tempContent.row0.length;
+        const newRowCount = Object.keys(tempContent).length;
+        const newRowContent = [];
+
+        const newRowString = 'row' + newRowCount;
+        setOrderedContent([...orderedContent, newRowString]);
+        
+        for (let i = 0; i < colCount; i++) {
+            newRowContent.push('New Row');
+        }
+
+        setTempContent( tempContent => ({
+            ...tempContent, 
+            [`row${newRowCount}`]: newRowContent
+        }))
     }
 
     function onAddColClick() {
@@ -111,7 +142,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                     <div id="MainContent">
                         { orderedContent.map((row, rIndex) => {
                             return (<ul key={`Row${rIndex}`} className={ row }> 
-                                { content[row].map((col, cIndex) => {
+                                { tempContent[row].map((col, cIndex) => {
                                     return <li key={`Row${rIndex}Col${cIndex}`}><input type="text" defaultValue={ col } onChange={ (e) => setNewTableContent(e.target.value, rIndex, cIndex) } /></li>
                                 })}
                             </ul>)
