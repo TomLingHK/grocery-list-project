@@ -13,7 +13,8 @@ import Authentication from "./components/Authentication/Authentication";
 import AddPopup from "./components/AddPopup/AddPopup";
 import ConfirmPopup from "./components/ConfirmPopup/ConfirmPopup";
 import UploadImage from "./components/UploadImage/UploadImage";
-import { ref, uploadBytes } from "firebase/storage";
+import GalleryPopup from "./components/GalleryPopup/GalleryPopup";
+import { listAll, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 function App() {
     const [selected, setSelected] = useState(0);
@@ -22,7 +23,6 @@ function App() {
     const [isShowAddPopup, setIsShowAddPopup] = useState(false);
     const [isShowConfirmPopup, setIsShowConfirmPopup] = useState(false);
     const [confirmPopupConfirmFunction, setConfirmPopupConfirmFunction] = useState(() => {});
-    const [imageUpload, setImageUpload] = useState(null);
 
     // Confirm Popup States
     const [message, setMessage] = useState('');
@@ -32,6 +32,11 @@ function App() {
     const [newNavIsTesting, setNewNavIsTesting] = useState(false);
 
     const navListCollectionRef = collection(db, "navBar");
+
+    const [imageUpload, setImageUpload] = useState(null);
+    const [imageList, setImageList] = useState([]);
+
+    const imageListRef = ref(storage, "images/");
 
     const className = "App " + theme;
     
@@ -56,6 +61,17 @@ function App() {
         console.log("App rendered: ");
         getNavList();
     }, []);
+
+    useEffect(() => {
+        listAll(imageListRef).then((response) => {
+            console.warn('response', response);
+            response.items.forEach((item) => {
+                getDownloadURL(item).then((url) => {
+                    setImageList((prev) => [...prev, url])
+                })
+            })
+        })
+    }, [])
 
     const onSubmitNav = async () => {
         try {
@@ -226,6 +242,7 @@ function App() {
                     isShowConfirmPopup={isShowConfirmPopup}
                     setIsShowConfirmPopup={setIsShowConfirmPopup}
                 ></ConfirmPopup>
+                {/* <GalleryPopup imageList={imageList}></GalleryPopup> */}
             </div>
         </ThemeContext.Provider>
     );
