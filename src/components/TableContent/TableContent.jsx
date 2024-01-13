@@ -69,9 +69,8 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     function onConfirmClick() {
         const contentChanged = !shallowEqual(content, tempContent);
         if (contentChanged) {
-            const callbackFunction = function() {setIsEditing(false)};
+            const callbackFunction = function() {setIsEditing(false); resetTempData();};
             updateTableContentConfirm(tempContent, dataId, callbackFunction);
-            resetTempData();
         }
         else {
             setIsEditing(false);
@@ -81,9 +80,8 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     function onCancelClick() {
         const contentChanged = !shallowEqual(content, tempContent);
         if (contentChanged) {
-            const callbackFunction = function() {setIsEditing(false)};
+            const callbackFunction = function() {setIsEditing(false); resetTempData();};
             discardTableContentConfirm(callbackFunction);
-            resetTempData();
         }
         else {
             setIsEditing(false);
@@ -114,7 +112,13 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     }
 
     function onAddColClick() {
+        const newTempContent = JSON.parse(JSON.stringify(tempContent));
+        
+        Object.keys(newTempContent).forEach(key => {
+            newTempContent[key].push('New Col');
+        })
 
+        setTempContent(newTempContent);
     }
 
     if (content === undefined) return(<></>)
@@ -176,9 +180,15 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                     <div id="MainContent">
                         { orderedContent.map((row, rIndex) => {
                             return (<ul key={`Row${rIndex}`} className={ row }> 
-                                { content[row].map((col, cIndex) => {
-                                    return <li key={`Row${rIndex}Col${cIndex}`}> { col } </li>
-                                })}
+                                { 
+                                        !!content[row] 
+                                    ? 
+                                        content[row].map((col, cIndex) => {
+                                            return <li key={`Row${rIndex}Col${cIndex}`}> { col } </li>
+                                        }) 
+                                    : 
+                                        ""
+                                }
                             </ul>)
                         })}
                     </div>
