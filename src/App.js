@@ -35,6 +35,7 @@ function App() {
 
     const [imageUpload, setImageUpload] = useState(null);
     const [imageList, setImageList] = useState([]);
+    const [isShowGalleryPopup, setIsShowGalleryPopup] = useState(false);
 
     const imageListRef = ref(storage, "images/");
 
@@ -57,21 +58,28 @@ function App() {
         }
     }
 
+    const getGalleryImages = async () => {
+        try {
+            let tempImageList = [];
+            const response = await listAll(imageListRef);
+            if (response.items.length == 0) return;
+
+            for (const item of response.items) {
+                const url = await getDownloadURL(item);
+                tempImageList.push(url);
+            }
+
+            setImageList(tempImageList);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     useEffect(() => {
         console.log("App rendered: ");
         getNavList();
+        getGalleryImages();
     }, []);
-
-    useEffect(() => {
-        listAll(imageListRef).then((response) => {
-            console.warn('response', response);
-            response.items.forEach((item) => {
-                getDownloadURL(item).then((url) => {
-                    setImageList((prev) => [...prev, url])
-                })
-            })
-        })
-    }, [])
 
     const onSubmitNav = async () => {
         try {
@@ -227,6 +235,7 @@ function App() {
                     <ThemeButton setTheme={ setTheme }></ThemeButton>
                     <Authentication/>
                     <UploadImage setImageUpload={ setImageUpload } uploadFile={ uploadFile }/>
+                    <button onClick={ () => setIsShowGalleryPopup(true) }>Show Gallery</button>
                 </div>
                 <AddPopup 
                     setNewNavTitle={setNewNavTitle} 
@@ -242,7 +251,10 @@ function App() {
                     isShowConfirmPopup={isShowConfirmPopup}
                     setIsShowConfirmPopup={setIsShowConfirmPopup}
                 ></ConfirmPopup>
-                {/* <GalleryPopup imageList={imageList}></GalleryPopup> */}
+                {isShowGalleryPopup ? (
+                    <GalleryPopup imageList={imageList} setIsShowGalleryPopup={setIsShowGalleryPopup}></GalleryPopup>
+                ) : ( <></> )
+                }
             </div>
         </ThemeContext.Provider>
     );

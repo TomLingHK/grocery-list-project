@@ -13,8 +13,8 @@
     }
     .content{
         position: absolute;
-        height: 30%;
-        width: 40%;
+        height: 90%;
+        width: 90%;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -22,7 +22,37 @@
         border: solid 5px rgb(0, 162, 255);
         border-radius: 10px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        .noImagesTxt {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            text-align: center;
+            color: black;
+            font-size: larger;
+            font-style: italic;
+            font-weight: bold;
+        }
+        img {
+            max-height: 180px;
+            max-width: 180px;
+            aspect-ratio: 1/1;
+            padding: 10px;
+            object-fit: cover;
+        }
+        .closeButton {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            color: red;
+            opacity: 0.3;
+            transition-duration: 400ms;
+            cursor: pointer;
+
+            &:hover {
+                    opacity: 1;
+            }
+        }
     }
     
     &.dark {
