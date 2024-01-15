@@ -237,20 +237,26 @@ function App() {
                     <UploadImage setImageUpload={ setImageUpload } uploadFile={ uploadFile }/>
                     <button onClick={ () => setIsShowGalleryPopup(true) }>Show Gallery</button>
                 </div>
-                <AddPopup 
-                    setNewNavTitle={setNewNavTitle} 
-                    setNewNavIsTesting={setNewNavIsTesting} 
-                    newNavIsTesting={newNavIsTesting} 
-                    onSubmitNav={onSubmitNav}
-                    isShowAddPopup={isShowAddPopup}
-                    setIsShowAddPopup={setIsShowAddPopup}
-                ></AddPopup>
-                <ConfirmPopup
-                    message={message}
-                    onConfirm={confirmPopupConfirmFunction}
-                    isShowConfirmPopup={isShowConfirmPopup}
-                    setIsShowConfirmPopup={setIsShowConfirmPopup}
-                ></ConfirmPopup>
+                {isShowAddPopup ? (
+                    <AddPopup 
+                        setNewNavTitle={setNewNavTitle} 
+                        setNewNavIsTesting={setNewNavIsTesting} 
+                        newNavIsTesting={newNavIsTesting} 
+                        onSubmitNav={onSubmitNav}
+                        setIsShowAddPopup={setIsShowAddPopup}
+                    ></AddPopup>
+                ) :
+                    ( <></> )
+                }
+                {isShowConfirmPopup ? (
+                    <ConfirmPopup
+                        message={message}
+                        onConfirm={confirmPopupConfirmFunction}
+                        setIsShowConfirmPopup={setIsShowConfirmPopup}
+                    ></ConfirmPopup>
+                ) :
+                    ( <></> )
+                }
                 {isShowGalleryPopup ? (
                     <GalleryPopup imageList={imageList} setIsShowGalleryPopup={setIsShowGalleryPopup}></GalleryPopup>
                 ) : ( <></> )

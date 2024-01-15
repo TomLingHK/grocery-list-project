@@ -4,11 +4,9 @@ import ThemeContext from '../../context/ThemeContext';
 
 import './AddPopup.scss'
 
-function AddPopup({setNewNavTitle, setNewNavIsTesting, newNavIsTesting, onSubmitNav, isShowAddPopup, setIsShowAddPopup}) {
+function AddPopup({setNewNavTitle, setNewNavIsTesting, newNavIsTesting, onSubmitNav, setIsShowAddPopup}) {
     const theme = useContext(ThemeContext);
     const className = "addPopupContainer " + theme;
-
-    if (!isShowAddPopup) return(<></>);
 
     return (
         <div className={ className }>

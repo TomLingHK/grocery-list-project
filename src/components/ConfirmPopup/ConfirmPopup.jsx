@@ -4,14 +4,12 @@ import ThemeContext from '../../context/ThemeContext';
 
 import './ConfirmPopup.scss';
 
-function ConfirmPopup({ message, onConfirm, isShowConfirmPopup, setIsShowConfirmPopup }) {
+function ConfirmPopup({ message, onConfirm, setIsShowConfirmPopup }) {
     const theme = useContext(ThemeContext);
     const className = "confirmPopupContainer " + theme;
     useEffect(() => {
         console.log("ConfirmPopup rendered: ");
     })
-    
-    if (!isShowConfirmPopup) return(<></>);
 
     return (
         <div className={ className }>
