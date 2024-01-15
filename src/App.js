@@ -62,7 +62,7 @@ function App() {
         try {
             let tempImageList = [];
             const response = await listAll(imageListRef);
-            if (response.items.length == 0) return;
+            if (response.items.length === 0) return;
 
             for (const item of response.items) {
                 const url = await getDownloadURL(item);

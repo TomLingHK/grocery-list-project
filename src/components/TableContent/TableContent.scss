@@ -56,6 +56,17 @@
                 input {
                     color: black;
                 }
+                .galleryButton {
+                    padding-left: 10px;
+                    color: rgb(255, 193, 78);
+                    opacity: 0.3;
+                    transition-duration: 400ms;
+            
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 1;
+                    }
+                }
             }
         }
     }

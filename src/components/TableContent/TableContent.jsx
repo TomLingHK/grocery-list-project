@@ -145,11 +145,18 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                     </div>
                     <div id="MainContent">
                         { orderedContent.map((row, rIndex) => {
-                            return (<ul key={`Row${rIndex}`} className={ row }> 
+                            return (
+                                <ul key={`Row${rIndex}`} className={ row }> 
                                 { tempContent[row].map((col, cIndex) => {
-                                    return <li key={`Row${rIndex}Col${cIndex}`}><input type="text" defaultValue={ col } onChange={ (e) => setNewTableContent(e.target.value, rIndex, cIndex) } /></li>
+                                    return ([
+                                        <li key={`Row${rIndex}Col${cIndex}`}>
+                                            <input type="text" defaultValue={ col } onChange={ (e) => setNewTableContent(e.target.value, rIndex, cIndex) } />
+                                            {rIndex > 0 ? <FontAwesomeIcon className="galleryButton" icon={icon({name: 'image', style: 'solid'})} />
+                                            : ''
+                                            }
+                                        </li>])
                                 })}
-                            </ul>)
+                                </ul>)
                         })}
                     </div>
                     <div id="AddRowContainer">
