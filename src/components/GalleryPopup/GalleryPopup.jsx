@@ -6,13 +6,18 @@ import ThemeContext from '../../context/ThemeContext';
 
 import './GalleryPopup.scss';
 
-function GalleryPopup({ imageList, setIsShowGalleryPopup }) {
+function GalleryPopup({ imageList, setIsShowGalleryPopup, curTableContentRow, curTableContentCol, updateTableContentImageFunction }) {
     const theme = useContext(ThemeContext);
     const className = "galleryPopupContainer " + theme;
 
     useEffect(() => {
         console.log("GalleryPopup rendered: ");
     })
+
+    function onImageClick(url) {
+        const newValue = `image::${url}`;
+        updateTableContentImageFunction(newValue, curTableContentRow, curTableContentCol);
+    }
 
     return (
         <div className={ className }>
@@ -23,7 +28,7 @@ function GalleryPopup({ imageList, setIsShowGalleryPopup }) {
                         <div className='noImagesTxt'>No Images uploaded</div>
                 ) : (
                     imageList.map((url) => {
-                        return <img width='180' height='180' alt="" key={url} src={url} />
+                        return <img width='180' height='180' alt="" key={url} src={url} onClick={() => {onImageClick(url)}} />
                     })
                 )}
                 <FontAwesomeIcon className="closeButton" onClick={ () => {setIsShowGalleryPopup(false)}} icon={icon({name: 'circle-xmark', style: 'solid'})} />

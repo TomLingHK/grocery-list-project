@@ -6,7 +6,7 @@ import ThemeContext from '../../context/ThemeContext';
 
 import './TableContent.scss'
 
-function TableContent({ content, rowCount, colCount, updateTableContentConfirm, discardTableContentConfirm, dataId }) {
+function TableContent({ content, rowCount, colCount, updateTableContentConfirm, discardTableContentConfirm, dataId, setIsShowGalleryPopup, chooseTableContentImage }) {
     const theme = useContext(ThemeContext);
     const [isEditing, setIsEditing] = useState(false);
     const [tempContent, setTempContent] = useState([]);
@@ -55,6 +55,10 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     }
 
     function setNewTableContent(newValue, row, col) {
+        if (row === undefined || col === undefined) {
+            console.error("[Function setNewTableContent] Missing row or col!");
+            return;
+        }
         const curRow = 'row' + row;
         const curRowContent = [...tempContent[curRow]];
 
@@ -121,6 +125,11 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
         setTempContent(newTempContent);
     }
 
+    function onImageBtnClick(row, col) {
+        setIsShowGalleryPopup(true);
+        chooseTableContentImage(row, col, setNewTableContent);
+    }
+
     if (content === undefined) return(<></>)
 
     return (
@@ -150,9 +159,18 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                                 { tempContent[row].map((col, cIndex) => {
                                     return ([
                                         <li key={`Row${rIndex}Col${cIndex}`}>
-                                            <input type="text" defaultValue={ col } onChange={ (e) => setNewTableContent(e.target.value, rIndex, cIndex) } />
-                                            {rIndex > 0 ? <FontAwesomeIcon className="galleryButton" icon={icon({name: 'image', style: 'solid'})} />
-                                            : ''
+                                            {col.indexOf('image::') === 0 ?
+                                                <img width='180' height='180' alt="" src={col.replace('image::', '')} />
+                                            :
+                                                <input type="text" defaultValue={ col } onChange={ (e) => setNewTableContent(e.target.value, rIndex, cIndex) } />
+                                            }
+                                            {rIndex > 0 ? (
+                                                <FontAwesomeIcon 
+                                                    className="galleryButton" 
+                                                    onClick={() => onImageBtnClick(rIndex, cIndex)}
+                                                    icon={icon({name: 'image', style: 'solid'})} 
+                                                />
+                                            ): ''
                                             }
                                         </li>])
                                 })}
@@ -191,7 +209,15 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                                         !!content[row] 
                                     ? 
                                         content[row].map((col, cIndex) => {
-                                            return <li key={`Row${rIndex}Col${cIndex}`}> { col } </li>
+                                            return ([
+                                                <li key={`Row${rIndex}Col${cIndex}`}> 
+                                                    {col.indexOf('image::') === 0 ?
+                                                        <img width='180' height='180' alt="" src={col.replace('image::', '')} />
+                                                    :
+                                                        <div>{ col }</div>
+                                                    }
+                                                </li>
+                                             ])
                                         }) 
                                     : 
                                         ""

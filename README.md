@@ -16,7 +16,7 @@ This is a project aims to practice React framework and interact between database
 
 - [x] Able to add new row / col for table
 
-- [ ] Able too delete row / col ( row0 cannot be deleted, at least 1 row and 1 col)
+- [ ] Able to delete row / col ( row0 cannot be deleted, at least 1 row and 1 col)
 
 - [ ] Reorder nav bar
 
@@ -24,9 +24,11 @@ This is a project aims to practice React framework and interact between database
 
 - [ ] Pass object to components and use destructuring
 
-- [ ] Able to upload pictures
+- [x] Able to upload pictures
 
-- [ ] Gallery to insert pictures in table content
+- [x] Gallery to insert pictures in table content
+
+- [ ] Able to remove picture in table content and show input
 
 - [ ] Authorization
 

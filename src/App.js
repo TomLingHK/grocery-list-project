@@ -36,6 +36,9 @@ function App() {
     const [imageUpload, setImageUpload] = useState(null);
     const [imageList, setImageList] = useState([]);
     const [isShowGalleryPopup, setIsShowGalleryPopup] = useState(false);
+    const [curTableContentRow, setCurTableContentRow] = useState(0);
+    const [curTableContentCol, setCurTableContentCol] = useState(0);
+    const [updateTableContentImageFunction, setUpdateTableContentImageFunction] = useState(() => {});
 
     const imageListRef = ref(storage, "images/");
 
@@ -212,6 +215,17 @@ function App() {
             };
         });
     }
+
+    function chooseTableContentImage(row, col, callbackFunction) {
+        setCurTableContentRow(row);
+        setCurTableContentCol(col);
+        setUpdateTableContentImageFunction(() => {
+            return (newValue, row, col) => {
+                callbackFunction(newValue, row, col);
+                setIsShowGalleryPopup(false);
+            }
+        })
+    }
     
     return (
         <ThemeContext.Provider value={theme}>
@@ -231,6 +245,8 @@ function App() {
                         updateTableContentConfirm={ updateTableContentConfirm }
                         discardTableContentConfirm={ discardTableContentConfirm }
                         dataId={ navList[selected]?.id } 
+                        setIsShowGalleryPopup={ setIsShowGalleryPopup }
+                        chooseTableContentImage={ chooseTableContentImage }
                     ></TableContent>
                     <ThemeButton setTheme={ setTheme }></ThemeButton>
                     <Authentication/>
@@ -245,8 +261,7 @@ function App() {
                         onSubmitNav={onSubmitNav}
                         setIsShowAddPopup={setIsShowAddPopup}
                     ></AddPopup>
-                ) :
-                    ( <></> )
+                ) : ( <></> )
                 }
                 {isShowConfirmPopup ? (
                     <ConfirmPopup
@@ -254,11 +269,16 @@ function App() {
                         onConfirm={confirmPopupConfirmFunction}
                         setIsShowConfirmPopup={setIsShowConfirmPopup}
                     ></ConfirmPopup>
-                ) :
-                    ( <></> )
+                ) : ( <></> )
                 }
                 {isShowGalleryPopup ? (
-                    <GalleryPopup imageList={imageList} setIsShowGalleryPopup={setIsShowGalleryPopup}></GalleryPopup>
+                    <GalleryPopup 
+                        imageList={imageList} 
+                        setIsShowGalleryPopup={ setIsShowGalleryPopup}
+                        curTableContentRow={curTableContentRow}
+                        curTableContentCol={curTableContentCol}
+                        updateTableContentImageFunction={updateTableContentImageFunction}
+                    ></GalleryPopup>
                 ) : ( <></> )
                 }
             </div>
