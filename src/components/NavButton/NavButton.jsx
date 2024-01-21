@@ -50,11 +50,11 @@ function NavButton({ children, index, handleClick, newTitleConfirm, deleteTitleC
                         <FontAwesomeIcon className="editButton_normal" icon={icon({name: 'pen-to-square', style: 'regular'})} />
                         <FontAwesomeIcon className="editButton_hover" icon={icon({name: 'pen-to-square', style: 'solid'})} />
                     </div>
+                    <div className="deleteButtons" onClick={ onDeleteClick }>
+                        <FontAwesomeIcon className="deleteButton" icon={icon({name: 'circle-xmark', style: 'solid'})} />
+                    </div>
                 </>
             }
-            <div className="deleteButtons" onClick={ onDeleteClick }>
-                <FontAwesomeIcon className="deleteButton" icon={icon({name: 'circle-xmark', style: 'solid'})} />
-            </div>
         </div>
     )
 }

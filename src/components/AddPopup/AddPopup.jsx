@@ -13,7 +13,7 @@ function AddPopup({setNewNavTitle, setNewNavIsTesting, newNavIsTesting, onSubmit
             <div className="addPopupBg">
             </div>
             <div className="addPopupInputSection">
-                <div className="titleInputContaienr">
+                <div className="titleInputContainer">
                     <input 
                         placeholder="Title..." 
                         onChange={(e) => setNewNavTitle(e.target.value)}
