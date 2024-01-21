@@ -55,6 +55,7 @@ function App() {
                 id: doc.id,
             }));
 
+            if (filteredData[selected] === undefined) setSelected(0);
             setNavList(filteredData);
         } catch (error) {
             console.error(error);
