@@ -28,7 +28,7 @@ This is a project aims to practice React framework and interact between database
 
 - [x] Gallery to insert pictures in table content
 
-- [ ] Able to remove picture in table content and show input
+- [x] Able to remove picture in table content and show input
 
 - [ ] Authorization
 

@@ -159,33 +159,42 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                     <div id="MainContent">
                         { orderedContent.map((row, rIndex) => {
                             return (
-                                <ul key={`Row${rIndex}`} className={ row }> 
-                                { tempContent[row].map((col, cIndex) => {
-                                    return ([
-                                        <li key={`Row${rIndex}Col${cIndex}`}>
-                                            {col.indexOf('image::') === 0 ?
-                                            <>
-                                                <img width='180' height='180' alt="" src={col.replace('image::', '')} />
-                                                <FontAwesomeIcon 
-                                                    className="removeImgButton" 
-                                                    onClick={() => onRemoveImageBtnClick(rIndex, cIndex)}
-                                                    icon={icon({name: 'circle-xmark', style: 'solid'})} 
-                                                />
-                                            </>
-                                            :
-                                                <input type="text" defaultValue={ col } onChange={ (e) => setNewTableContent(e.target.value, rIndex, cIndex) } />
-                                            }
-                                            {rIndex > 0 ? (
-                                                <FontAwesomeIcon 
-                                                    className="galleryButton" 
-                                                    onClick={() => onImageBtnClick(rIndex, cIndex)}
-                                                    icon={icon({name: 'image', style: 'solid'})} 
-                                                />
-                                            ): ''
-                                            }
-                                        </li>])
-                                })}
-                                </ul>)
+                                <>
+                                    {rIndex > 0 ? (
+                                        <FontAwesomeIcon 
+                                            className="removeRowButton" 
+                                            icon={icon({name: 'circle-xmark', style: 'solid'})} 
+                                        />
+                                    ) : <></>}
+                                    <ul key={`Row${rIndex}`} className={ row }> 
+                                    { tempContent[row].map((col, cIndex) => {
+                                        return ([
+                                            <li key={`Row${rIndex}Col${cIndex}`}>
+                                                {col.indexOf('image::') === 0 ?
+                                                <>
+                                                    <img width='180' height='180' alt="" src={col.replace('image::', '')} />
+                                                    <FontAwesomeIcon 
+                                                        className="removeImgButton" 
+                                                        onClick={() => onRemoveImageBtnClick(rIndex, cIndex)}
+                                                        icon={icon({name: 'circle-xmark', style: 'solid'})} 
+                                                    />
+                                                </>
+                                                :
+                                                    <input type="text" defaultValue={ col } onChange={ (e) => setNewTableContent(e.target.value, rIndex, cIndex) } />
+                                                }
+                                                {rIndex > 0 ? (
+                                                    <FontAwesomeIcon 
+                                                        className="galleryButton" 
+                                                        onClick={() => onImageBtnClick(rIndex, cIndex)}
+                                                        icon={icon({name: 'image', style: 'solid'})} 
+                                                    />
+                                                ): ''
+                                                }
+                                            </li>])
+                                    })}
+                                    </ul>
+                                </>
+                                )
                         })}
                     </div>
                     <div id="AddRowContainer">

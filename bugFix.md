@@ -5,3 +5,5 @@
 - [x] Bug: Edit table content, click confirm first time -> confirm popup appear. Click cancel. Click confirm again -> confirm popup does not appear. Quited edit mode.
 
 - [x] Bug: Click nav button X, delete nav button X. Table content empty. Should redirect to first tableContent.
+
+- [ ] Bug: Editing mode not disabled when try clicking other navButton.

@@ -39,6 +39,18 @@
     #MainContent {
         padding-top: 30px;
 
+        .removeRowButton {
+            position: absolute;
+            transform: translate(5px, 10px);
+            color: red;
+            opacity: 0.3;
+            transition-duration: 400ms;
+            cursor: pointer;
+            &:hover {
+                opacity: 1;
+            }
+        }
+
         ul {
             list-style-type: none;
             width: 98%;
@@ -204,8 +216,11 @@
     &.editMode {
         #MainContent {
             ul {
-                width: 92%;
-                margin-left: 1%;
+                width: 87%;
+                margin-left: 5%;
+                &.row0 {
+                    margin-top: 2%;
+                }
             }
         }
     }
