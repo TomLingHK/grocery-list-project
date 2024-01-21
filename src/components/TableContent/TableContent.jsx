@@ -130,6 +130,10 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
         chooseTableContentImage(row, col, setNewTableContent);
     }
 
+    function onRemoveImageBtnClick(row, col) {
+        setNewTableContent("[Image removed]", row, col);
+    }
+
     if (content === undefined) return(<></>)
 
     return (
@@ -160,7 +164,14 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                                     return ([
                                         <li key={`Row${rIndex}Col${cIndex}`}>
                                             {col.indexOf('image::') === 0 ?
+                                            <>
                                                 <img width='180' height='180' alt="" src={col.replace('image::', '')} />
+                                                <FontAwesomeIcon 
+                                                    className="removeImgButton" 
+                                                    onClick={() => onRemoveImageBtnClick(rIndex, cIndex)}
+                                                    icon={icon({name: 'circle-xmark', style: 'solid'})} 
+                                                />
+                                            </>
                                             :
                                                 <input type="text" defaultValue={ col } onChange={ (e) => setNewTableContent(e.target.value, rIndex, cIndex) } />
                                             }
