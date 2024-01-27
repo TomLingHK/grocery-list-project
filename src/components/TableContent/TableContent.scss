@@ -1,6 +1,8 @@
 .tableContent {
     position: relative;
     padding-bottom: 25px;
+    width: 100%;
+    height: 75%;
 
     #EditButton, #EditingButton {
         position: absolute;
@@ -38,6 +40,9 @@
 
     #MainContent {
         padding-top: 30px;
+        width: 98%;
+        margin: 0 1%;
+        overflow-x: auto;
 
         .removeRowButton {
             position: absolute;
@@ -50,19 +55,23 @@
                 opacity: 1;
             }
         }
-
-        ul {
-            list-style-type: none;
-            width: 98%;
-            display: table;
-            table-layout: fixed;
-            margin-left: 1%;
+        .table {
+            display: flex;
+            flex-direction: column;
+        }
+        .row {
+            display: flex;
             &.row0 {
-                background: aliceblue;
+                .cell {
+                    background: aliceblue;
+                }
             }
-            li {
-                display: table-cell;
+            .cell {
+                width: 33.3%;
+                min-width: 33.3%;
+                padding: 8px;
                 text-align: center;
+                vertical-align: middle;
                 padding: 10px;
                 border: 1px solid;
                 input {
@@ -198,7 +207,6 @@
                 li {
                     border: 1px solid black;
                     position: relative;
-                    height: 40px;
                     div {
                         position: absolute;
                         top: 50%;

@@ -157,7 +157,8 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                         </div>
                     </div>
                     <div id="MainContent">
-                        { orderedContent.map((row, rIndex) => {
+                        <div class="table">
+                            { orderedContent.map((row, rIndex) => {
                             return (
                                 <>
                                     {rIndex > 0 ? (
@@ -166,10 +167,10 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                                             icon={icon({name: 'circle-xmark', style: 'solid'})} 
                                         />
                                     ) : <></>}
-                                    <ul key={`Row${rIndex}`} className={ row }> 
+                                    <div key={`Row${rIndex}`} className={`row ${row}`}> 
                                     { tempContent[row].map((col, cIndex) => {
                                         return ([
-                                            <li key={`Row${rIndex}Col${cIndex}`}>
+                                            <div key={`Row${rIndex}Col${cIndex}`} className="cell"> 
                                                 {col.indexOf('image::') === 0 ?
                                                 <>
                                                     <img width='180' height='180' alt="" src={col.replace('image::', '')} />
@@ -190,12 +191,13 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                                                     />
                                                 ): ''
                                                 }
-                                            </li>])
+                                            </div>])
                                     })}
-                                    </ul>
+                                    </div>
                                 </>
                                 )
                         })}
+                        </div>
                     </div>
                     <div id="AddRowContainer">
                         <div id="AddRowButton" onClick={onAddRowClick}>
@@ -223,27 +225,30 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                         </div>
                     </div>
                     <div id="MainContent">
-                        { orderedContent.map((row, rIndex) => {
-                            return (<ul key={`Row${rIndex}`} className={ row }> 
-                                { 
-                                        !!content[row] 
-                                    ? 
-                                        content[row].map((col, cIndex) => {
-                                            return ([
-                                                <li key={`Row${rIndex}Col${cIndex}`}> 
-                                                    {col.indexOf('image::') === 0 ?
-                                                        <img width='180' height='180' alt="" src={col.replace('image::', '')} />
-                                                    :
-                                                        <div>{ col }</div>
-                                                    }
-                                                </li>
-                                             ])
-                                        }) 
-                                    : 
-                                        ""
-                                }
-                            </ul>)
-                        })}
+                        <div class="table">
+                            { orderedContent.map((row, rIndex) => {
+                            return (
+                                    <div key={`Row${rIndex}`} className={`row ${row}`}> 
+                                        { 
+                                                !!content[row] 
+                                            ? 
+                                                content[row].map((col, cIndex) => {
+                                                    return ([
+                                                        <div key={`Row${rIndex}Col${cIndex}`} className="cell"> 
+                                                            {col.indexOf('image::') === 0 ?
+                                                                <img width='180' height='180' alt="" src={col.replace('image::', '')} />
+                                                            :
+                                                                <div>{ col }</div>
+                                                            }
+                                                        </div>
+                                                    ])
+                                                }) 
+                                            : 
+                                                ""
+                                        }
+                                    </div>)
+                            })}
+                        </div>
                     </div>
                 </>
             }
