@@ -40,13 +40,16 @@
 
     #MainContent {
         padding-top: 30px;
-        width: 98%;
-        margin: 0 1%;
+        width: 96%;
+        margin-left: 1%;
+        margin-right: 3%;
         overflow-x: auto;
 
-        .removeRowButton {
-            position: absolute;
-            transform: translate(5px, 10px);
+        .removeRowButton,
+        .removeColButton {
+            position: relative;
+            top: 50%;
+            transform: translateY(-100%);
             color: red;
             opacity: 0.3;
             transition-duration: 400ms;
@@ -98,6 +101,18 @@
                     &:hover {
                         opacity: 1;
                     }
+                }
+
+                &.removeRowButtons,
+                &.removeColButtons {
+                    padding: unset;
+                    border: unset;
+                    background: unset;
+                }
+
+                &.removeRowButtons {
+                    width: 5%;
+                    min-width: 5%;
                 }
             }
         }
@@ -170,7 +185,7 @@
         right: 5px;
         padding-top: 30px;
         height: calc(100% - 65px);
-        width: 8%;
+        width: 3%;
         transition: transform 200ms ease-in-out;
 
         #AddColButton {

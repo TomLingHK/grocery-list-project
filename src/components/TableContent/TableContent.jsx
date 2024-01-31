@@ -158,50 +158,68 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                     </div>
                     <div id="MainContent">
                         <div class="table">
+                            <div className={`row removeColBtns`}> 
+                                <div className="cell removeRowButtons" id="emptyCell"> 
+                                </div>
+                                { tempContent['row0'].map((col, cIndex) => {
+                                    return ([
+                                        <div key={`PreRowCol${cIndex}`} className="cell removeColButtons"> 
+                                            <FontAwesomeIcon 
+                                                className="removeColButton" 
+                                                icon={icon({name: 'circle-xmark', style: 'solid'})} 
+                                            />
+                                        </div>
+                                    ])
+                                })}
+                            </div>
                             { orderedContent.map((row, rIndex) => {
                             return (
                                 <>
-                                    {rIndex > 0 ? (
-                                        <FontAwesomeIcon 
-                                            className="removeRowButton" 
-                                            icon={icon({name: 'circle-xmark', style: 'solid'})} 
-                                        />
-                                    ) : <></>}
                                     <div key={`Row${rIndex}`} className={`row ${row}`}> 
-                                    { tempContent[row].map((col, cIndex) => {
-                                        return ([
-                                            <div key={`Row${rIndex}Col${cIndex}`} className="cell"> 
-                                                {col.indexOf('image::') === 0 ?
-                                                <>
-                                                    <img width='180' height='180' alt="" src={col.replace('image::', '')} />
-                                                    <FontAwesomeIcon 
-                                                        className="removeImgButton" 
-                                                        onClick={() => onRemoveImageBtnClick(rIndex, cIndex)}
-                                                        icon={icon({name: 'circle-xmark', style: 'solid'})} 
-                                                    />
-                                                </>
-                                                :
-                                                    <input type="text" defaultValue={ col } onChange={ (e) => setNewTableContent(e.target.value, rIndex, cIndex) } />
-                                                }
-                                                {rIndex > 0 ? (
-                                                    <FontAwesomeIcon 
-                                                        className="galleryButton" 
-                                                        onClick={() => onImageBtnClick(rIndex, cIndex)}
-                                                        icon={icon({name: 'image', style: 'solid'})} 
-                                                    />
-                                                ): ''
-                                                }
-                                            </div>])
-                                    })}
+                                        <div className="cell removeRowButtons"> 
+                                            { rIndex > 0 
+                                            ?
+                                                <FontAwesomeIcon 
+                                                    className="removeRowButton" 
+                                                    icon={icon({name: 'circle-xmark', style: 'solid'})} 
+                                                /> 
+                                            : <></>
+                                            }
+                                        </div>
+                                        { tempContent[row].map((col, cIndex) => {
+                                            return ([
+                                                <div key={`Row${rIndex}Col${cIndex}`} className="cell"> 
+                                                    {col.indexOf('image::') === 0 ?
+                                                    <>
+                                                        <img width='180' height='180' alt="" src={col.replace('image::', '')} />
+                                                        <FontAwesomeIcon 
+                                                            className="removeImgButton" 
+                                                            onClick={() => onRemoveImageBtnClick(rIndex, cIndex)}
+                                                            icon={icon({name: 'circle-xmark', style: 'solid'})} 
+                                                        />
+                                                    </>
+                                                    :
+                                                        <input type="text" defaultValue={ col } onChange={ (e) => setNewTableContent(e.target.value, rIndex, cIndex) } />
+                                                    }
+                                                    {rIndex > 0 ? (
+                                                        <FontAwesomeIcon 
+                                                            className="galleryButton" 
+                                                            onClick={() => onImageBtnClick(rIndex, cIndex)}
+                                                            icon={icon({name: 'image', style: 'solid'})} 
+                                                        />
+                                                    ): ''
+                                                    }
+                                                </div>])
+                                        })}
                                     </div>
                                 </>
                                 )
                         })}
                         </div>
-                    </div>
-                    <div id="AddRowContainer">
-                        <div id="AddRowButton" onClick={onAddRowClick}>
-                            +
+                        <div id="AddRowContainer">
+                            <div id="AddRowButton" onClick={onAddRowClick}>
+                                +
+                            </div>
                         </div>
                     </div>
                     <div id="ActionContainer">
