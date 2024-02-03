@@ -134,6 +134,31 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
         setNewTableContent("[Image removed]", row, col);
     }
 
+    function onRemoveRowClick(row) {
+        const rowCount = Object.keys(tempContent).length;
+        const newTempContent = JSON.parse(JSON.stringify({...tempContent}));
+        const newOrderedContent = JSON.parse(JSON.stringify([...orderedContent]));
+        newOrderedContent.splice(newOrderedContent.length - 1, 1);
+        
+        setOrderedContent([...newOrderedContent]);
+
+        delete newTempContent['row' + row];
+
+        if (row < rowCount - 1) {
+            for (let i = row; i < rowCount - 1; i++ ) {
+                const nextRowIndex = i + 1;
+                newTempContent['row' + i] = JSON.parse(JSON.stringify(newTempContent['row' + nextRowIndex]));
+                delete newTempContent['row' + nextRowIndex];
+            }
+        }
+
+        setTempContent(newTempContent);
+    }
+
+    function onRemoveColClick() {
+
+    }
+
     if (content === undefined) return(<></>)
 
     return (
@@ -157,7 +182,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                         </div>
                     </div>
                     <div id="MainContent">
-                        <div class="table">
+                        <div className="table">
                             <div className={`row removeColBtns`}> 
                                 <div className="cell removeRowButtons" id="emptyCell"> 
                                 </div>
@@ -175,12 +200,13 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                             { orderedContent.map((row, rIndex) => {
                             return (
                                 <>
-                                    <div key={`Row${rIndex}`} className={`row ${row}`}> 
+                                    <div key={`editingRow${rIndex}TotalRow${orderedContent.length}`} className={`row ${row}`}> 
                                         <div className="cell removeRowButtons"> 
                                             { rIndex > 0 
                                             ?
                                                 <FontAwesomeIcon 
                                                     className="removeRowButton" 
+                                                    onClick={() => onRemoveRowClick(rIndex)}
                                                     icon={icon({name: 'circle-xmark', style: 'solid'})} 
                                                 /> 
                                             : <></>
@@ -188,7 +214,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                                         </div>
                                         { tempContent[row].map((col, cIndex) => {
                                             return ([
-                                                <div key={`Row${rIndex}Col${cIndex}`} className="cell"> 
+                                                <div key={`editingRow${rIndex}Col${cIndex}`} className="cell"> 
                                                     {col.indexOf('image::') === 0 ?
                                                     <>
                                                         <img width='180' height='180' alt="" src={col.replace('image::', '')} />
@@ -243,16 +269,16 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                         </div>
                     </div>
                     <div id="MainContent">
-                        <div class="table">
+                        <div className="table">
                             { orderedContent.map((row, rIndex) => {
                             return (
-                                    <div key={`Row${rIndex}`} className={`row ${row}`}> 
+                                    <div key={`displayRow${rIndex}`} className={`row ${row}`}> 
                                         { 
                                                 !!content[row] 
                                             ? 
                                                 content[row].map((col, cIndex) => {
                                                     return ([
-                                                        <div key={`Row${rIndex}Col${cIndex}`} className="cell"> 
+                                                        <div key={`displayRow${rIndex}Col${cIndex}`} className="cell"> 
                                                             {col.indexOf('image::') === 0 ?
                                                                 <img width='180' height='180' alt="" src={col.replace('image::', '')} />
                                                             :
