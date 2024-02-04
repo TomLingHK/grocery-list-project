@@ -291,7 +291,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                                                             {col.indexOf('image::') === 0 ?
                                                                 <img width='180' height='180' alt="" src={col.replace('image::', '')} />
                                                             :
-                                                                <div>{ col }</div>
+                                                                <div className="cellContent">{ col }</div>
                                                             }
                                                         </div>
                                                     ])

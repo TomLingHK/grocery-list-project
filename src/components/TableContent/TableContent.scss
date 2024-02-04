@@ -120,6 +120,9 @@
                 img {
                     margin: 0 auto;
                 }
+
+                .cellContent {
+                }
             }
         }
     }
@@ -271,6 +274,25 @@
                             background: unset;
                         }
                     }
+                }
+            }
+        }
+    }
+
+    
+    @media (orientation: portrait) {
+        margin-top: 8%;
+        #EditButton {
+            transform: translateY(-180%) scale(2);
+            transform-origin: right;
+        }
+        #MainContent {
+            .table {
+                transform: scale(2);
+                transform-origin: top left;
+                .cell {
+                    width: 25%;
+                    min-width: 25%;
                 }
             }
         }
