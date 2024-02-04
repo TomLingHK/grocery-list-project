@@ -1,8 +1,8 @@
 .tableContent {
     position: relative;
-    padding-bottom: 25px;
+    padding-bottom: 20px;
     width: 100%;
-    height: 75%;
+    height: 73%;
     margin-top: 3%;
 
     #EditButton, #EditingButton {
@@ -116,6 +116,10 @@
                     width: 5%;
                     min-width: 5%;
                 }
+                
+                img {
+                    margin: 0 auto;
+                }
             }
         }
     }
@@ -212,39 +216,61 @@
         }
     }
 
-    &.dark {
+    &.editMode {
         #MainContent {
-            ul {
-                color: rgba(255, 255, 255, 0.822);
-    
+            .row {
+                display: flex;
                 &.row0 {
-                    background: rgb(3, 67, 122)
-                }
-    
-                li {
-                    border: 1px solid black;
-                    position: relative;
-                    div {
-                        position: absolute;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
+                    .cell {
+                        background: aliceblue;
                     }
-                    img {
-                        margin: 0 auto;
+                }
+                .cell {
+                    &.removeRowButtons,
+                    &.removeColButtons {
+                        padding: unset;
+                        border: unset;
+                        background: unset;
                     }
                 }
             }
         }
     }
 
-    &.editMode {
+    &.dark {
         #MainContent {
-            ul {
-                width: 87%;
-                margin-left: 5%;
+            .row {
+                color: rgba(255, 255, 255, 0.822);
+    
                 &.row0 {
-                    margin-top: 2%;
+                    .cell {
+                        background: rgb(3, 67, 122);
+                    }
+                }
+    
+                .cell {
+                    border: 1px solid black;
+                    position: relative;
+                }
+            }
+        }
+        
+        &.editMode {
+            #MainContent {
+                .row {
+                    &.row0 {
+                        .cell {
+                            background: rgb(3, 67, 122);
+                        }
+                    }
+                    .cell {
+                        &.removeRowButtons,
+                        &.removeColButtons {
+                            padding: unset;
+                            border: unset;
+                            background: unset;
+                        }
+                    }
                 }
             }
         }
