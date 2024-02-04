@@ -155,8 +155,14 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
         setTempContent(newTempContent);
     }
 
-    function onRemoveColClick() {
+    function onRemoveColClick(col) {
+        const newTempContent = JSON.parse(JSON.stringify({...tempContent}));
 
+        Object.keys(newTempContent).forEach( key => {
+            newTempContent[key].splice(col, 1);
+        })
+
+        setTempContent(newTempContent);
     }
 
     if (content === undefined) return(<></>)
@@ -186,21 +192,24 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                             <div className={`row removeColBtns`}> 
                                 <div className="cell removeRowButtons" id="emptyCell"> 
                                 </div>
-                                { tempContent['row0'].map((col, cIndex) => {
-                                    return ([
-                                        <div key={`PreRowCol${cIndex}`} className="cell removeColButtons"> 
-                                            <FontAwesomeIcon 
-                                                className="removeColButton" 
-                                                icon={icon({name: 'circle-xmark', style: 'solid'})} 
-                                            />
-                                        </div>
-                                    ])
-                                })}
+                                { tempContent['row0'].length > 1 ?
+                                    ( tempContent['row0'].map((col, cIndex) => {
+                                        return ([
+                                            <div key={`PreRowCol${cIndex}`} className="cell removeColButtons"> 
+                                                <FontAwesomeIcon 
+                                                    className="removeColButton" 
+                                                    onClick={() => onRemoveColClick(cIndex)}
+                                                    icon={icon({name: 'circle-xmark', style: 'solid'})} 
+                                                />
+                                            </div>
+                                        ])
+                                    })) : <></>
+                                }
                             </div>
                             { orderedContent.map((row, rIndex) => {
                             return (
                                 <>
-                                    <div key={`editingRow${rIndex}TotalRow${orderedContent.length}`} className={`row ${row}`}> 
+                                    <div key={`editingRow${rIndex}TotalRow${orderedContent.length}TotalCol${tempContent['row0'].length}`} className={`row ${row}`}> 
                                         <div className="cell removeRowButtons"> 
                                             { rIndex > 0 
                                             ?
