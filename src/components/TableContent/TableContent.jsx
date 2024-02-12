@@ -171,20 +171,16 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     return (
         <div className={ className }>
             <div id="EditButton" onClick={onEnterEditModeClick}>
-                <div>
-                    {isEditing 
-                    ? 
-                        <FontAwesomeIcon icon={icon({name: 'pen-to-square', style: 'solid'})} />
-                    :
-                        <>
-                            <FontAwesomeIcon className="editButton_normal" icon={icon({name: 'pen-to-square', style: 'regular'})} />
-                            <FontAwesomeIcon className="editButton_hover" icon={icon({name: 'pen-to-square', style: 'solid'})} />
-                        </>
-                    }
-                </div>
-                <div className="text">
-                    {isEditing ? 'Editing' : 'Edit'}
-                </div>
+                {isEditing 
+                ? 
+                    <FontAwesomeIcon icon={icon({name: 'pen-to-square', style: 'solid'})} />
+                :
+                    <>
+                        <FontAwesomeIcon className="editButton_normal" icon={icon({name: 'pen-to-square', style: 'regular'})} />
+                        <FontAwesomeIcon className="editButton_hover" icon={icon({name: 'pen-to-square', style: 'solid'})} />
+                    </>
+                }
+                <div className="text">{isEditing ? 'Editing' : 'Edit'}</div>
             </div>
             {isEditing && 
                 <div id="AddColContainer">
@@ -195,29 +191,29 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
             }
             <div id="MainContent">
                 <div className="table">
-                {isEditing
-                ?
-                    <>
-                        <div className={`row removeColBtns`}> 
-                            <div className="cell removeRowButtons" id="emptyCell"> 
+                    {isEditing
+                    ?
+                        <>
+                            <div className={`row removeColBtns`}> 
+                                <div className="cell removeRowButtons" id="emptyCell"></div>
+                                { tempContent['row0'].length > 1 
+                                ?
+                                    ( tempContent['row0'].map((col, cIndex) => {
+                                        return ([
+                                            <div key={`PreRowCol${cIndex}`} className="cell removeColButtons"> 
+                                                <FontAwesomeIcon 
+                                                    className="removeColButton" 
+                                                    onClick={() => onRemoveColClick(cIndex)}
+                                                    icon={icon({name: 'circle-xmark', style: 'solid'})} 
+                                                />
+                                            </div>
+                                        ])
+                                    })) 
+                                : <></>
+                                }
                             </div>
-                            { tempContent['row0'].length > 1 ?
-                                ( tempContent['row0'].map((col, cIndex) => {
-                                    return ([
-                                        <div key={`PreRowCol${cIndex}`} className="cell removeColButtons"> 
-                                            <FontAwesomeIcon 
-                                                className="removeColButton" 
-                                                onClick={() => onRemoveColClick(cIndex)}
-                                                icon={icon({name: 'circle-xmark', style: 'solid'})} 
-                                            />
-                                        </div>
-                                    ])
-                                })) : <></>
-                            }
-                        </div>
-                        { orderedContent.map((row, rIndex) => {
-                        return (
-                            <>
+                            { orderedContent.map((row, rIndex) => {
+                            return (
                                 <div key={`editingRow${rIndex}TotalRow${orderedContent.length}TotalCol${tempContent['row0'].length}`} className={`row ${row}`}> 
                                     <div className="cell removeRowButtons"> 
                                         { rIndex > 0 
@@ -233,41 +229,40 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                                     { tempContent[row].map((col, cIndex) => {
                                         return ([
                                             <div key={`editingRow${rIndex}Col${cIndex}`} className="cell"> 
-                                                {col.indexOf('image::') === 0 ?
-                                                <>
-                                                    <img width='180' height='180' alt="" src={col.replace('image::', '')} />
-                                                    <FontAwesomeIcon 
-                                                        className="removeImgButton" 
-                                                        onClick={() => onRemoveImageBtnClick(rIndex, cIndex)}
-                                                        icon={icon({name: 'circle-xmark', style: 'solid'})} 
-                                                    />
-                                                </>
+                                                {col.indexOf('image::') === 0
+                                                ?
+                                                    <>
+                                                        <img width='180' height='180' alt="" src={col.replace('image::', '')} />
+                                                        <FontAwesomeIcon 
+                                                            className="removeImgButton" 
+                                                            onClick={() => onRemoveImageBtnClick(rIndex, cIndex)}
+                                                            icon={icon({name: 'circle-xmark', style: 'solid'})} 
+                                                        />
+                                                    </>
                                                 :
                                                     <input type="text" defaultValue={ col } onChange={ (e) => setNewTableContent(e.target.value, rIndex, cIndex) } />
                                                 }
-                                                {rIndex > 0 ? (
+                                                {rIndex > 0 
+                                                ?
                                                     <FontAwesomeIcon 
                                                         className="galleryButton" 
                                                         onClick={() => onImageBtnClick(rIndex, cIndex)}
                                                         icon={icon({name: 'image', style: 'solid'})} 
                                                     />
-                                                ): ''
+                                                : ''
                                                 }
                                             </div>])
                                     })}
-                                </div>
-                            </>
-                            )
-                        })}
-                    </>
-                :
-                    <>
-                        { orderedContent.map((row, rIndex) => {
-                        return (
-                            <div key={`displayRow${rIndex}`} className={`row ${row}`}> 
-                                { 
-                                        !!content[row] 
-                                    ? 
+                                </div>)
+                            })}
+                        </>
+                    :
+                        <>
+                            { orderedContent.map((row, rIndex) => {
+                            return (
+                                <div key={`displayRow${rIndex}`} className={`row ${row}`}> 
+                                    {!!content[row] 
+                                    ?
                                         content[row].map((col, cIndex) => {
                                             return ([
                                                 <div key={`displayRow${rIndex}Col${cIndex}`} className="cell"> 
@@ -279,13 +274,12 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                                                 </div>
                                             ])
                                         }) 
-                                    : 
-                                        ""
-                                }
-                            </div>)
-                        })}
-                    </>
-                }
+                                    : ""
+                                    }
+                                </div>)
+                            })}
+                        </>
+                    }
                 </div>
                 {isEditing && 
                     <div id="AddRowContainer">
@@ -297,12 +291,8 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
             </div>
             {isEditing &&
                 <div id="ActionContainer">
-                    <div id="ConfirmButton">
-                        <FontAwesomeIcon className="confirmButton" icon={icon({name: 'circle-check', style: 'solid'})} onClick={ onConfirmClick } />
-                    </div>
-                    <div id="CancelButton">
-                        <FontAwesomeIcon className="cancelButton" icon={icon({name: 'circle-xmark', style: 'solid'})} onClick={ onCancelClick }/>
-                    </div>
+                    <FontAwesomeIcon className="confirmButton" icon={icon({name: 'circle-check', style: 'solid'})} onClick={ onConfirmClick } />
+                    <FontAwesomeIcon className="cancelButton" icon={icon({name: 'circle-xmark', style: 'solid'})} onClick={ onCancelClick }/>
                 </div>
             }
         </div>
