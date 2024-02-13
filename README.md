@@ -22,8 +22,6 @@ This is a project aims to practice React framework and interact between database
 
 - [x] Modify data
 
-- [ ] Pass object to components and use destructuring
-
 - [x] Able to upload pictures
 
 - [x] Gallery to insert pictures in table content
