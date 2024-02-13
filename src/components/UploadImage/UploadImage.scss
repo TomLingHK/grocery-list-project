@@ -1,3 +1,13 @@
 .uploadImagePanel {
     display: inline-block;
 }
+
+@media (orientation: portrait) {
+    .uploadImagePanel {
+        display: block;
+        transform: scale(2);
+        transform-origin: top left;
+        margin-bottom: 50px;
+        margin-left: 10px;
+    }
+}

@@ -62,4 +62,16 @@
             color: rgba(255, 255, 255, 0.822);
         }
     }
+    
+    @media (orientation: portrait) {
+        .content {
+            height: 80%;
+            width: 80%;
+        }
+        .closeButton {
+            transform: scale(2);
+            transform-origin: bottom right;
+            margin: 10px;
+        }
+    }
 }

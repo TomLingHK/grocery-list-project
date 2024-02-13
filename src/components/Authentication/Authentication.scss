@@ -4,3 +4,14 @@
     border-radius: 5px;
     margin: 10px;
 }
+
+@media (orientation: portrait) {
+    .authbtn {
+        transform: scale(1.5);
+        transform-origin: top left;
+        margin-bottom: 20px;
+    }
+    #LogOutBtn {
+        margin-left: 100px;
+    }
+}

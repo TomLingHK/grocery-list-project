@@ -259,10 +259,12 @@ function App() {
                         setIsShowGalleryPopup={ setIsShowGalleryPopup }
                         chooseTableContentImage={ chooseTableContentImage }
                     ></TableContent>
-                    <ThemeButton setTheme={ setTheme }></ThemeButton>
-                    <Authentication/>
-                    <UploadImage setImageUpload={ setImageUpload } uploadFile={ uploadFile } fileRef={ fileRef }/>
-                    <button onClick={ () => setIsShowGalleryPopup(true) }>Show Gallery</button>
+                    <div className="bottomContent">
+                        <ThemeButton setTheme={ setTheme }></ThemeButton>
+                        <Authentication/>
+                        <UploadImage setImageUpload={ setImageUpload } uploadFile={ uploadFile } fileRef={ fileRef }/>
+                        <button id="showGalleryButton" onClick={ () => setIsShowGalleryPopup(true) }>Show Gallery</button>
+                    </div>
                 </div>
                 {isShowAddPopup ? (
                     <AddPopup 

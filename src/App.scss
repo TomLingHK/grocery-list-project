@@ -10,3 +10,10 @@ button {
     border-radius: 5px;
     margin: 10px;
 }
+
+@media (orientation: portrait) {
+    #showGalleryButton {
+        transform: scale(2);
+        transform-origin: top left;
+    }
+}

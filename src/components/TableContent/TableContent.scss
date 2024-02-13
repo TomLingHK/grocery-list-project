@@ -187,8 +187,8 @@
     #AddColContainer {
         position: absolute;
         right: 5px;
-        padding-top: 30px;
-        height: calc(100% - 65px);
+        padding-bottom: 30px;
+        height: 100%;
         width: 3%;
         transition: transform 200ms ease-in-out;
 
@@ -274,14 +274,18 @@
         }
     }
 
-    
     @media (orientation: portrait) {
-        margin-top: 8%;
+        margin-top: 10%;
+
         #EditButton {
             transform: translateY(-180%) scale(2);
             transform-origin: right;
         }
         #MainContent {
+            width: 90%;
+            height: 97%;
+            margin-left: 3%;
+            margin-right: 7%;
             .table {
                 transform: scale(2);
                 transform-origin: top left;
@@ -290,6 +294,18 @@
                     min-width: 25%;
                 }
             }
+        }
+        #AddColContainer {
+            transform: scale(2);
+            transform-origin: right;
+        }
+        #AddRowContainer {
+            transform: scale(2);
+            transform-origin: top;
+        }
+        #ActionContainer {
+            transform: scale(2);
+            transform-origin: top right;
         }
     }
 }

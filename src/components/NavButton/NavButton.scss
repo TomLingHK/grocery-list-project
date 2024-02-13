@@ -93,4 +93,8 @@
             color: green;
         }
     }
+    
+    @media (orientation: portrait) {
+        font-size: 40px;
+    }
 }
