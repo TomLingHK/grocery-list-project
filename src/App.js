@@ -266,7 +266,7 @@ function App() {
                         <button id="showGalleryButton" onClick={ () => setIsShowGalleryPopup(true) }>Show Gallery</button>
                     </div>
                 </div>
-                {isShowAddPopup ? (
+                {isShowAddPopup &&
                     <AddPopup 
                         setNewNavTitle={setNewNavTitle} 
                         setNewNavIsTesting={setNewNavIsTesting} 
@@ -274,17 +274,15 @@ function App() {
                         onSubmitNav={onSubmitNav}
                         setIsShowAddPopup={setIsShowAddPopup}
                     ></AddPopup>
-                ) : ( <></> )
                 }
-                {isShowConfirmPopup ? (
+                {isShowConfirmPopup &&
                     <ConfirmPopup
                         message={message}
                         onConfirm={confirmPopupConfirmFunction}
                         setIsShowConfirmPopup={setIsShowConfirmPopup}
                     ></ConfirmPopup>
-                ) : ( <></> )
                 }
-                {isShowGalleryPopup ? (
+                {isShowGalleryPopup &&
                     <GalleryPopup 
                         imageList={imageList} 
                         setIsShowGalleryPopup={ setIsShowGalleryPopup}
@@ -292,7 +290,6 @@ function App() {
                         curTableContentCol={curTableContentCol}
                         updateTableContentImageFunction={updateTableContentImageFunction}
                     ></GalleryPopup>
-                ) : ( <></> )
                 }
             </div>
         </ThemeContext.Provider>
