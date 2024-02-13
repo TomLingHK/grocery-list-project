@@ -7,6 +7,10 @@
     padding: 10px 50px;
     border: 2px solid black;
     margin-right: 10px;
+
+    &.active {
+        border: 2px solid rgb(194, 194, 0);
+    }
     
     .navButtonTitle {
         margin-right: 15px;
@@ -78,18 +82,15 @@
         }
     }
 
-
-    &.dark {
-        &.isTesting {
-            .navButtonTitle {
-                color: rgb(255, 98, 98);
-            }
+    &.isTesting {
+        .navButtonTitle {
+            color: rgb(255, 98, 98);
         }
-    
-        &.notTesting {
-            .navButtonTitle {
-                color: green;
-            }
+    }
+
+    &.notTesting {
+        .navButtonTitle {
+            color: green;
         }
     }
 }

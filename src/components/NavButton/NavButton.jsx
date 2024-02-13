@@ -6,11 +6,12 @@ import ThemeContext from '../../context/ThemeContext';
 
 import './NavButton.scss';
 
-function NavButton({ children, index, handleClick, newTitleConfirm, deleteTitleConfirm, dataId }) {
+function NavButton({ children, index, handleClick, newTitleConfirm, deleteTitleConfirm, dataId, selected }) {
     const isTesting = children.testing ? "isTesting" : "notTesting";
+    const isSelected = index === selected ? "active" : "inactive";
 
     const theme = useContext(ThemeContext);
-    const className = "navButton " + theme + " " + isTesting;
+    const className = "navButton " + theme + " " + isTesting + " " + isSelected;
 
     const [isEditing, setIsEditing] = useState(false);
     const [newTitle, setNewTitle] = useState(children.title);

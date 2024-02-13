@@ -1,5 +1,6 @@
-function UploadImage({ setImageUpload, uploadFile }) {
+import './UploadImage.scss'
 
+function UploadImage({ setImageUpload, uploadFile }) {
     return (
         <div className="uploadImagePanel">
             <input type="file" onChange={(event) => {

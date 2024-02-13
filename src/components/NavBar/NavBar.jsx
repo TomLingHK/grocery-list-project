@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import './NavBar.scss';
 import NavButton from '../NavButton/NavButton';
 
-function NavBar({ items, handleClick, setIsShowAddPopup, newTitleConfirm, deleteTitleConfirm }) {
+function NavBar({ items, handleClick, setIsShowAddPopup, newTitleConfirm, deleteTitleConfirm, selected }) {
     useEffect(() => {
         console.log("NavBar rendered: ", items);
     })
@@ -18,7 +18,8 @@ function NavBar({ items, handleClick, setIsShowAddPopup, newTitleConfirm, delete
                             handleClick={ handleClick } 
                             newTitleConfirm={ newTitleConfirm } 
                             deleteTitleConfirm= { deleteTitleConfirm }
-                            dataId={ item.id } 
+                            dataId={ item.id }
+                            selected={ selected }
                         >
                             { item }
                         </NavButton>

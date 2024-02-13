@@ -26,6 +26,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
             orderArr.push('row' + i);
         }
         setOrderedContent(orderArr);
+        setIsEditing(false);
     }, [content])
 
     function resetTempData() {

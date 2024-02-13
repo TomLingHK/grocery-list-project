@@ -238,6 +238,7 @@ function App() {
                         setIsShowAddPopup={ setIsShowAddPopup }
                         newTitleConfirm = { newTitleConfirm }
                         deleteTitleConfirm = { deleteTitleConfirm }
+                        selected= { selected }
                     ></NavBar>
                     <TableContent 
                         content={ navList[selected]?.tableContent } 
