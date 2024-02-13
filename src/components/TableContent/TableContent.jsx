@@ -12,6 +12,8 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     const [tempContent, setTempContent] = useState([]);
     const [orderedContent, setOrderedContent] = useState([]);
 
+    const tableRef = useRef(null);
+
     const editingClass = isEditing ? ' editMode' : '';
     const className = "tableContent " + theme + editingClass;
 
@@ -115,6 +117,12 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
             ...tempContent, 
             [`row${newRowCount}`]: newRowContent
         }))
+        
+        setTimeout(() => {
+            if (tableRef.current) {
+                tableRef.current.scrollTop = tableRef.current.scrollHeight;
+            }
+        }, 0);
     }
 
     function onAddColClick() {
@@ -125,6 +133,12 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
         })
 
         setTempContent(newTempContent);
+        
+        setTimeout(() => {
+            if (tableRef.current) {
+                tableRef.current.scrollLeft = tableRef.current.scrollWidth;
+            }
+        }, 0);
     }
 
     function onImageBtnClick(row, col) {
@@ -190,7 +204,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                     </div>
                 </div>
             }
-            <div id="MainContent">
+            <div id="MainContent" ref={ tableRef }>
                 <div className="table">
                     {isEditing
                     ?
@@ -282,19 +296,19 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                         </>
                     }
                 </div>
-                {isEditing && 
-                    <div id="AddRowContainer">
-                        <div id="AddRowButton" onClick={onAddRowClick}>
-                            +
-                        </div>
-                    </div>
-                }
             </div>
             {isEditing &&
+            <>
+                <div id="AddRowContainer">
+                    <div id="AddRowButton" onClick={onAddRowClick}>
+                        +
+                    </div>
+                </div>
                 <div id="ActionContainer">
                     <FontAwesomeIcon className="confirmButton" icon={icon({name: 'circle-check', style: 'solid'})} onClick={ onConfirmClick } />
                     <FontAwesomeIcon className="cancelButton" icon={icon({name: 'circle-xmark', style: 'solid'})} onClick={ onCancelClick }/>
                 </div>
+            </>
             }
         </div>
     )
