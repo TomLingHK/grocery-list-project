@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { db, storage } from "./config/firebase-config";
 import { getDocs, collection, addDoc, Timestamp, query, orderBy, doc, updateDoc, deleteDoc } from "firebase/firestore";
 
@@ -17,25 +17,32 @@ import GalleryPopup from "./components/GalleryPopup/GalleryPopup";
 import { listAll, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 function App() {
-    const [selected, setSelected] = useState(0);
     const [theme, setTheme] = useState('dark');
+    
+    // NavList
+    const navListCollectionRef = collection(db, "navBar");
     const [navList, setNavList] = useState([]);
+
+    // NavButton
+    const [selected, setSelected] = useState(0);
+
+    // Popup States
+    const [message, setMessage] = useState('');
     const [isShowAddPopup, setIsShowAddPopup] = useState(false);
     const [isShowConfirmPopup, setIsShowConfirmPopup] = useState(false);
     const [confirmPopupConfirmFunction, setConfirmPopupConfirmFunction] = useState(() => {});
-
-    // Confirm Popup States
-    const [message, setMessage] = useState('');
 
     // New Nav States
     const [newNavTitle, setNewNavTitle] = useState("");
     const [newNavIsTesting, setNewNavIsTesting] = useState(false);
 
-    const navListCollectionRef = collection(db, "navBar");
-
+    // Images States
     const [imageUpload, setImageUpload] = useState(null);
+    const fileRef = useRef(null);
     const [imageList, setImageList] = useState([]);
     const [isShowGalleryPopup, setIsShowGalleryPopup] = useState(false);
+
+    // Set images states
     const [curTableContentRow, setCurTableContentRow] = useState(0);
     const [curTableContentCol, setCurTableContentCol] = useState(0);
     const [updateTableContentImageFunction, setUpdateTableContentImageFunction] = useState(() => {});
@@ -43,8 +50,13 @@ function App() {
     const imageListRef = ref(storage, "images/");
 
     const className = "App " + theme;
-    
-    
+
+    useEffect(() => {
+        console.log("App rendered: ");
+        getNavList();
+        getGalleryImages();
+    }, []);
+
     const getNavList = async () => {
         try {
             const orderedQuery = query(navListCollectionRef, orderBy("createdAt"));
@@ -78,12 +90,6 @@ function App() {
             console.error(error);
         }
     }
-
-    useEffect(() => {
-        console.log("App rendered: ");
-        getNavList();
-        getGalleryImages();
-    }, []);
 
     const onSubmitNav = async () => {
         try {
@@ -156,6 +162,9 @@ function App() {
         const filesFolderRef = ref(storage, `images/${imageUpload.name}`);
         try {
             await uploadBytes(filesFolderRef, imageUpload);
+            alert("Image uploaded!");
+            setImageUpload(null);
+            fileRef.current && (fileRef.current.value = '');
         } catch (error) {
             console.error(error);
         }
@@ -252,7 +261,7 @@ function App() {
                     ></TableContent>
                     <ThemeButton setTheme={ setTheme }></ThemeButton>
                     <Authentication/>
-                    <UploadImage setImageUpload={ setImageUpload } uploadFile={ uploadFile }/>
+                    <UploadImage setImageUpload={ setImageUpload } uploadFile={ uploadFile } fileRef={ fileRef }/>
                     <button onClick={ () => setIsShowGalleryPopup(true) }>Show Gallery</button>
                 </div>
                 {isShowAddPopup ? (
