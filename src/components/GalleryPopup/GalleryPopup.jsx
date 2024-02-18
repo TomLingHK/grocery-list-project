@@ -24,13 +24,15 @@ function GalleryPopup({ imageList, setIsShowGalleryPopup, curTableContentRow, cu
             <div className="galleryPopupBg">
             </div>
             <div className="content">
-                { (imageList.length === 0) ? (
+                <div className='imagesContainer'>
+                    { (imageList.length === 0) ? (
                         <div className='noImagesTxt'>No Images uploaded</div>
-                ) : (
-                    imageList.map((url) => {
-                        return <img width='180' height='180' alt="" key={url} src={url} onClick={() => {onImageClick(url)}} />
-                    })
-                )}
+                    ) : (
+                        imageList.map((url) => {
+                            return <img width='180' height='180' alt="" key={url} src={url} onClick={() => {onImageClick(url)}} />
+                        })
+                    )}
+                </div>
                 <FontAwesomeIcon className="closeButton" onClick={ () => {setIsShowGalleryPopup(false)}} icon={icon({name: 'circle-xmark', style: 'solid'})} />
             </div>
         </div>

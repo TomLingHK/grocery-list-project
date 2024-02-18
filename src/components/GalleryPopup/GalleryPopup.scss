@@ -21,26 +21,34 @@
         background: white;
         border: solid 5px rgb(0, 162, 255);
         border-radius: 10px;
-        display: flex;
-        flex-direction: row;
-        .noImagesTxt {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            text-align: center;
-            color: black;
-            font-size: larger;
-            font-style: italic;
-            font-weight: bold;
-        }
-        img {
-            max-height: 180px;
-            max-width: 180px;
-            aspect-ratio: 1/1;
+
+        .imagesContainer {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            overflow-y: auto;
             margin: 10px;
-            object-fit: cover;
-            cursor: pointer;
+
+            .noImagesTxt {
+                position: absolute;
+                top: 50%;
+                width: 100%;
+                text-align: center;
+                color: black;
+                font-size: larger;
+                font-style: italic;
+                font-weight: bold;
+            }
+            img {
+                max-height: 180px;
+                max-width: 180px;
+                aspect-ratio: 1/1;
+                margin: 10px;
+                object-fit: cover;
+                cursor: pointer;
+            }
         }
+
         .closeButton {
             position: absolute;
             right: 10px;
@@ -66,7 +74,7 @@
     @media (orientation: portrait) {
         .content {
             height: 80%;
-            width: 80%;
+            width: 85%;
         }
         .closeButton {
             transform: scale(2);
