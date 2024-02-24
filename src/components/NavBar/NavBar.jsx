@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import './NavBar.scss';
-import NavButton from '../NavButton/NavButton';
+import NavButton from './Components/NavButton/NavButton';
 
 function NavBar({ items, handleClick, setIsShowAddPopup, newTitleConfirm, deleteTitleConfirm, selected }) {
     useEffect(() => {

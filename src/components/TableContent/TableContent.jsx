@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 import ThemeContext from '../../context/ThemeContext';
+import TableCells from "./Components/TableCells/TableCells";
 
 import './TableContent.scss'
 
@@ -205,97 +206,17 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                 </div>
             }
             <div id="MainContent" ref={ tableRef }>
-                <div className="table">
-                    {isEditing
-                    ?
-                        <>
-                            <div className={`row removeColBtns`}> 
-                                <div className="cell removeRowButtons" id="emptyCell"></div>
-                                { tempContent['row0'].length > 1 
-                                ?
-                                    ( tempContent['row0'].map((col, cIndex) => {
-                                        return ([
-                                            <div key={`PreRowCol${cIndex}`} className="cell removeColButtons"> 
-                                                <FontAwesomeIcon 
-                                                    className="removeColButton" 
-                                                    onClick={() => onRemoveColClick(cIndex)}
-                                                    icon={icon({name: 'circle-xmark', style: 'solid'})} 
-                                                />
-                                            </div>
-                                        ])
-                                    })) 
-                                : <></>
-                                }
-                            </div>
-                            { orderedContent.map((row, rIndex) => {
-                            return (
-                                <div key={`editingRow${rIndex}TotalRow${orderedContent.length}TotalCol${tempContent['row0'].length}`} className={`row ${row}`}> 
-                                    <div className="cell removeRowButtons"> 
-                                        { rIndex > 0 
-                                        ?
-                                            <FontAwesomeIcon 
-                                                className="removeRowButton" 
-                                                onClick={() => onRemoveRowClick(rIndex)}
-                                                icon={icon({name: 'circle-xmark', style: 'solid'})} 
-                                            /> 
-                                        : <></>
-                                        }
-                                    </div>
-                                    { tempContent[row].map((col, cIndex) => {
-                                        return ([
-                                            <div key={`editingRow${rIndex}Col${cIndex}`} className="cell"> 
-                                                {col.indexOf('image::') === 0
-                                                ?
-                                                    <>
-                                                        <img width='180' height='180' alt="" src={col.replace('image::', '')} />
-                                                        <FontAwesomeIcon 
-                                                            className="removeImgButton" 
-                                                            onClick={() => onRemoveImageBtnClick(rIndex, cIndex)}
-                                                            icon={icon({name: 'circle-xmark', style: 'solid'})} 
-                                                        />
-                                                    </>
-                                                :
-                                                    <input type="text" defaultValue={ col } onChange={ (e) => setNewTableContent(e.target.value, rIndex, cIndex) } />
-                                                }
-                                                {rIndex > 0 
-                                                ?
-                                                    <FontAwesomeIcon 
-                                                        className="galleryButton" 
-                                                        onClick={() => onImageBtnClick(rIndex, cIndex)}
-                                                        icon={icon({name: 'image', style: 'solid'})} 
-                                                    />
-                                                : ''
-                                                }
-                                            </div>])
-                                    })}
-                                </div>)
-                            })}
-                        </>
-                    :
-                        <>
-                            { orderedContent.map((row, rIndex) => {
-                            return (
-                                <div key={`displayRow${rIndex}`} className={`row ${row}`}> 
-                                    {!!content[row] 
-                                    ?
-                                        content[row].map((col, cIndex) => {
-                                            return ([
-                                                <div key={`displayRow${rIndex}Col${cIndex}`} className="cell"> 
-                                                    {col.indexOf('image::') === 0 ?
-                                                        <img width='180' height='180' alt="" src={col.replace('image::', '')} />
-                                                    :
-                                                        <div className="cellContent">{ col }</div>
-                                                    }
-                                                </div>
-                                            ])
-                                        }) 
-                                    : ""
-                                    }
-                                </div>)
-                            })}
-                        </>
-                    }
-                </div>
+                <TableCells 
+                    content={content} 
+                    isEditing={isEditing} 
+                    tempContent={tempContent} 
+                    orderedContent={orderedContent}
+                    onRemoveColClick={onRemoveColClick}
+                    onRemoveRowClick={onRemoveRowClick}
+                    onRemoveImageBtnClick={onRemoveImageBtnClick}
+                    setNewTableContent={setNewTableContent}
+                    onImageBtnClick={onImageBtnClick}
+                ></TableCells>
             </div>
             {isEditing &&
             <>

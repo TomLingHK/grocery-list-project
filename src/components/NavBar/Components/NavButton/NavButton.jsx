@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
-import ThemeContext from '../../context/ThemeContext';
+import ThemeContext from "../../../../context/ThemeContext";
 
 import './NavButton.scss';
 
