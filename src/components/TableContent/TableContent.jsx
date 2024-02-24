@@ -30,7 +30,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
         }
         setOrderedContent(orderArr);
         setIsEditing(false);
-    }, [content])
+    }, [content, rowCount])
 
     function resetTempData() {
         setTempContent(content !== undefined ? JSON.parse(JSON.stringify(content)) : '');
@@ -142,46 +142,6 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
         }, 0);
     }
 
-    function onImageBtnClick(row, col) {
-        setIsShowGalleryPopup(true);
-        chooseTableContentImage(row, col, setNewTableContent);
-    }
-
-    function onRemoveImageBtnClick(row, col) {
-        setNewTableContent("[Image removed]", row, col);
-    }
-
-    function onRemoveRowClick(row) {
-        const rowCount = Object.keys(tempContent).length;
-        const newTempContent = JSON.parse(JSON.stringify({...tempContent}));
-        const newOrderedContent = JSON.parse(JSON.stringify([...orderedContent]));
-        newOrderedContent.splice(newOrderedContent.length - 1, 1);
-        
-        setOrderedContent([...newOrderedContent]);
-
-        delete newTempContent['row' + row];
-
-        if (row < rowCount - 1) {
-            for (let i = row; i < rowCount - 1; i++ ) {
-                const nextRowIndex = i + 1;
-                newTempContent['row' + i] = JSON.parse(JSON.stringify(newTempContent['row' + nextRowIndex]));
-                delete newTempContent['row' + nextRowIndex];
-            }
-        }
-
-        setTempContent(newTempContent);
-    }
-
-    function onRemoveColClick(col) {
-        const newTempContent = JSON.parse(JSON.stringify({...tempContent}));
-
-        Object.keys(newTempContent).forEach( key => {
-            newTempContent[key].splice(col, 1);
-        })
-
-        setTempContent(newTempContent);
-    }
-
     if (content === undefined) return(<></>)
 
     return (
@@ -210,12 +170,12 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
                     content={content} 
                     isEditing={isEditing} 
                     tempContent={tempContent} 
+                    setTempContent={setTempContent}
                     orderedContent={orderedContent}
-                    onRemoveColClick={onRemoveColClick}
-                    onRemoveRowClick={onRemoveRowClick}
-                    onRemoveImageBtnClick={onRemoveImageBtnClick}
+                    setOrderedContent={setOrderedContent}
                     setNewTableContent={setNewTableContent}
-                    onImageBtnClick={onImageBtnClick}
+                    setIsShowGalleryPopup={setIsShowGalleryPopup}
+                    chooseTableContentImage={chooseTableContentImage}
                 ></TableCells>
             </div>
             {isEditing &&

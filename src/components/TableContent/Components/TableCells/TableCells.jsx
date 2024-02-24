@@ -1,7 +1,47 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-function TableCells({content, isEditing, tempContent, orderedContent, onRemoveColClick, onRemoveRowClick, onRemoveImageBtnClick, setNewTableContent, onImageBtnClick}) {
+function TableCells({content, isEditing, tempContent, setTempContent, orderedContent, setOrderedContent, setNewTableContent, setIsShowGalleryPopup, chooseTableContentImage}) {
+    function onRemoveRowClick(row) {
+        const rowCount = Object.keys(tempContent).length;
+        const newTempContent = JSON.parse(JSON.stringify({...tempContent}));
+        const newOrderedContent = JSON.parse(JSON.stringify([...orderedContent]));
+        newOrderedContent.splice(newOrderedContent.length - 1, 1);
+        
+        setOrderedContent([...newOrderedContent]);
+
+        delete newTempContent['row' + row];
+
+        if (row < rowCount - 1) {
+            for (let i = row; i < rowCount - 1; i++ ) {
+                const nextRowIndex = i + 1;
+                newTempContent['row' + i] = JSON.parse(JSON.stringify(newTempContent['row' + nextRowIndex]));
+                delete newTempContent['row' + nextRowIndex];
+            }
+        }
+
+        setTempContent(newTempContent);
+    }
+
+    function onRemoveColClick(col) {
+        const newTempContent = JSON.parse(JSON.stringify({...tempContent}));
+
+        Object.keys(newTempContent).forEach( key => {
+            newTempContent[key].splice(col, 1);
+        })
+
+        setTempContent(newTempContent);
+    }
+    
+    function onImageBtnClick(row, col) {
+        setIsShowGalleryPopup(true);
+        chooseTableContentImage(row, col, setNewTableContent);
+    }
+
+    function onRemoveImageBtnClick(row, col) {
+        setNewTableContent("[Image removed]", row, col);
+    }
+
     return (
         <div className="table">
             { isEditing 
