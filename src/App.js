@@ -9,7 +9,7 @@ import './App.scss';
 import NavBar from "./components/NavBar/NavBar";
 import TableContent from "./components/TableContent/TableContent";
 import ThemeButton from "./components/ThemeButton/ThemeButton";
-import Authentication from "./components/Authentication/Authentication";
+// import Authentication from "./components/Authentication/Authentication";
 import AddPopup from "./components/AddPopup/AddPopup";
 import ConfirmPopup from "./components/ConfirmPopup/ConfirmPopup";
 import UploadImage from "./components/UploadImage/UploadImage";
@@ -91,6 +91,16 @@ function App() {
         }
     }
 
+/*
+    An array of arrays are not supported for field.
+    Therefore resort to using an object of arrays.
+    Example format for tableContent:
+    {
+        row0: ["Item Name", "Price", "Remark"],
+        row1: ["Pants", "$80", "GU"],
+        row2: ["Jacket", "$120", "Seasonal"]
+    }
+*/
     const onSubmitNav = async () => {
         try {
             await addDoc(navListCollectionRef, {
@@ -170,7 +180,7 @@ function App() {
         }
     }
 
-    function handleClick(index) {
+    function onNavBtnClick(index) {
         setSelected(index);
     }
 
@@ -243,7 +253,7 @@ function App() {
                 <div className="pageContainer">
                     <NavBar 
                         items={navList} 
-                        handleClick={ handleClick } 
+                        onNavBtnClick={ onNavBtnClick } 
                         setIsShowAddPopup={ setIsShowAddPopup }
                         newTitleConfirm = { newTitleConfirm }
                         deleteTitleConfirm = { deleteTitleConfirm }
@@ -261,9 +271,8 @@ function App() {
                     ></TableContent>
                     <div className="bottomContent">
                         <ThemeButton setTheme={ setTheme }></ThemeButton>
-                        <Authentication/>
+                        {/* <Authentication/> */}
                         <UploadImage setImageUpload={ setImageUpload } uploadFile={ uploadFile } fileRef={ fileRef }/>
-                        <button id="showGalleryButton" onClick={ () => setIsShowGalleryPopup(true) }>Show Gallery</button>
                     </div>
                 </div>
                 {isShowAddPopup &&

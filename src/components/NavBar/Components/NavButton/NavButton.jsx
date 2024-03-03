@@ -6,7 +6,7 @@ import ThemeContext from "../../../../context/ThemeContext";
 
 import './NavButton.scss';
 
-function NavButton({ children, index, handleClick, newTitleConfirm, deleteTitleConfirm, dataId, selected }) {
+function NavButton({ children, index, onNavBtnClick, newTitleConfirm, deleteTitleConfirm, dataId, selected }) {
     const isTesting = children.testing ? "isTesting" : "notTesting";
     const isSelected = index === selected ? "active" : "inactive";
 
@@ -44,7 +44,7 @@ function NavButton({ children, index, handleClick, newTitleConfirm, deleteTitleC
                 </>
                 :
                 <>
-                    <div className="navButtonTitle" onClick={ () => { handleClick(index) }}>
+                    <div className="navButtonTitle" onClick={ () => { onNavBtnClick(index) }}>
                         { children.title }
                     </div>
                     <div className="editButtons" onClick={ () => {setIsEditing(true)}}>

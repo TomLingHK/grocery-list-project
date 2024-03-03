@@ -28,8 +28,4 @@ This is a project aims to practice React framework and interact between database
 
 - [x] Able to remove picture in table content and show input
 
-- [ ] Authorization
-
-- [ ] Responsive design
-
-- [ ] React Native
+- [x] Responsive design
