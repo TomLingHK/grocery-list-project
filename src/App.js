@@ -52,7 +52,7 @@ function App() {
     const className = "App " + theme;
 
     useEffect(() => {
-        console.log("App rendered: ");
+        // console.log("App rendered: ");
         getNavList();
         getGalleryImages();
     }, []);

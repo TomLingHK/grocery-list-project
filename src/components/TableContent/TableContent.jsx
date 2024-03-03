@@ -19,7 +19,7 @@ function TableContent({ content, rowCount, colCount, updateTableContentConfirm, 
     const className = "tableContent " + theme + editingClass;
 
     useEffect(() => {
-        console.log("TableContent rendered: ");
+        // console.log("TableContent rendered: ");
     })
 
     useEffect(() => {

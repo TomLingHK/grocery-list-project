@@ -8,7 +8,7 @@ function ConfirmPopup({ message, onConfirm, setIsShowConfirmPopup }) {
     const theme = useContext(ThemeContext);
     const className = "confirmPopupContainer " + theme;
     useEffect(() => {
-        console.log("ConfirmPopup rendered: ");
+        // console.log("ConfirmPopup rendered: ");
     })
 
     return (

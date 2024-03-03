@@ -11,7 +11,7 @@ function GalleryPopup({ imageList, setIsShowGalleryPopup, curTableContentRow, cu
     const className = "galleryPopupContainer " + theme;
 
     useEffect(() => {
-        console.log("GalleryPopup rendered: ");
+        // console.log("GalleryPopup rendered: ");
     })
 
     function onImageClick(url) {

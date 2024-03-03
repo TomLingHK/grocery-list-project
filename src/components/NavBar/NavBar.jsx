@@ -5,7 +5,7 @@ import NavButton from './Components/NavButton/NavButton';
 
 function NavBar({ items, onNavBtnClick, setIsShowAddPopup, newTitleConfirm, deleteTitleConfirm, selected }) {
     useEffect(() => {
-        console.log("NavBar rendered: ", items);
+        // console.log("NavBar rendered: ", items);
     }, [items])
 
     return (
