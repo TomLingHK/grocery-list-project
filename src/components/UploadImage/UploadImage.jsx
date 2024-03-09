@@ -22,7 +22,7 @@ function UploadImage({ setImageUpload, uploadFile, fileRef }) {
                 onChange={(event) => onUploadFileChange(event)}
                 ref={ fileRef }
             ></input>
-            <button onClick={ uploadFile }>Upload Image</button>
+            <button onClick={ uploadFile }>Upload Image to gallery</button>
         </div>
     )
 }

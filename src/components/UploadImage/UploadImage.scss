@@ -4,10 +4,12 @@
 
 @media (orientation: portrait) {
     .uploadImagePanel {
-        display: block;
+        position: absolute;
         transform: scale(2);
         transform-origin: top left;
         margin-bottom: 50px;
         margin-left: 10px;
+        margin-top: 50px;
+        display: grid;
     }
 }
