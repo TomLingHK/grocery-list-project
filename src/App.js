@@ -294,7 +294,7 @@ function App() {
                 {isShowGalleryPopup &&
                     <GalleryPopup 
                         imageList={imageList} 
-                        setIsShowGalleryPopup={ setIsShowGalleryPopup}
+                        setIsShowGalleryPopup={setIsShowGalleryPopup}
                         curTableContentRow={curTableContentRow}
                         curTableContentCol={curTableContentCol}
                         updateTableContentImageFunction={updateTableContentImageFunction}

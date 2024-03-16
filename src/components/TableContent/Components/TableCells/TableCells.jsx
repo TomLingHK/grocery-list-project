@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 
+import TableCell from "./Components/TableCell";
+
 function TableCells({content, isEditing, tempContent, setTempContent, orderedContent, setOrderedContent, setNewTableContent, setIsShowGalleryPopup, chooseTableContentImage}) {
     function onRemoveRowClick(row) {
         const rowCount = Object.keys(tempContent).length;
@@ -74,19 +76,15 @@ function TableCells({content, isEditing, tempContent, setTempContent, orderedCon
                             {tempContent[row].map((col, cIndex) => {
                                 return (
                                     <div className="cell" key={`editingRow${rIndex}Col${cIndex}`}>
-                                        { col.indexOf('image::') === 0 
-                                        ? 
-                                            <>
-                                                <img width='180' height='180' alt="" src={col.replace('image::', '')} />
-                                                <FontAwesomeIcon className="removeImgButton" onClick={() => onRemoveImageBtnClick(rIndex, cIndex)} icon={icon({name: 'circle-xmark',style: 'solid'})} />
-                                            </> 
-                                        : 
-                                            <input type="text" defaultValue={col} onChange={e => setNewTableContent(e.target.value, rIndex, cIndex)} />
-                                        }
-                                        { rIndex > 0 
-                                        && 
-                                            <FontAwesomeIcon className="galleryButton" onClick={() => onImageBtnClick(rIndex, cIndex)} icon={icon({name: 'image',style: 'solid'})} /> 
-                                        }
+                                        <TableCell
+                                            isEditing={isEditing}
+                                            col={col}
+                                            rIndex={rIndex}
+                                            cIndex={cIndex}
+                                            onRemoveImageBtnClick={onRemoveImageBtnClick}
+                                            setNewTableContent={setNewTableContent}
+                                            onImageBtnClick={onImageBtnClick}
+                                        ></TableCell>
                                     </div>)
                             })}
                         </div>]
@@ -102,12 +100,15 @@ function TableCells({content, isEditing, tempContent, setTempContent, orderedCon
                                 content[row].map((col, cIndex) => {
                                     return [
                                     <div className="cell" key={`displayRow${rIndex}Col${cIndex}`}>
-                                        {col.indexOf('image::') === 0 
-                                        ? 
-                                            <img width='180' height='180' alt="" src={col.replace('image::', '')} /> 
-                                        : 
-                                            <div className="cellContent">{col}</div>
-                                        }
+                                        <TableCell
+                                            isEditing={isEditing}
+                                            col={col}
+                                            rIndex={rIndex}
+                                            cIndex={cIndex}
+                                            onRemoveImageBtnClick={onRemoveImageBtnClick}
+                                            setNewTableContent={setNewTableContent}
+                                            onImageBtnClick={onImageBtnClick}
+                                        ></TableCell>
                                     </div>]
                                 }) 
                             }
