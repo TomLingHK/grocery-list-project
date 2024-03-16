@@ -6,6 +6,6 @@
 
 - [x] Bug: Click nav button X, delete nav button X. Table content empty. Should redirect to first tableContent.
 
-- [ ] Bug: Editing mode not disabled when try clicking other navButton.
+- [x] Bug: Editing mode not disabled when try clicking other navButton.
 
-- [ ] Warning: Each child in a list should have a unique "key" prop. (TableContent)
+- [x] Warning: Each child in a list should have a unique "key" prop. (TableContent)
